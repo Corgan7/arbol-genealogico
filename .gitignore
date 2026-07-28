@@ -1,0 +1,17 @@
+# Datos personales: NUNCA en un repositorio público.
+# El árbol contiene información de personas vivas (oficios, domicilios,
+# estado civil) que no puede publicarse sin su consentimiento.
+datos/
+*.db
+*.sqlite
+arbol-familiar.html
+censo-familiar.md
+fichas/
+audios/
+fotos/
+documentos/
+
+.DS_Store
+Thumbs.db
+.env
+.env.*
