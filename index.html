@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Archivo familiar Barrios – Carrasco</title>
+<title>Ficha de árbol genealógico</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -16,17 +16,13 @@ html{-webkit-text-size-adjust:100%}
 body{background:var(--papel);color:var(--tinta);font-family:'Karla',system-ui,sans-serif;
  font-size:17px;line-height:1.55;padding-bottom:70px}
 .wrap{max-width:720px;margin:0 auto;padding:0 18px}
-
-header{border-bottom:2px solid var(--tinta);padding:26px 0 18px;position:relative;margin-bottom:4px}
-h1{font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:clamp(25px,6vw,38px);
- line-height:1;letter-spacing:-.03em}
+header{border-bottom:2px solid var(--tinta);padding:26px 0 18px}
+h1{font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:clamp(24px,5.6vw,36px);
+ line-height:1.05;letter-spacing:-.03em}
 .kicker{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;
  text-transform:uppercase;color:var(--violeta);margin-bottom:8px}
-.sello{position:absolute;top:22px;right:0;transform:rotate(-8deg);border:2.5px solid var(--violeta);
- color:var(--violeta);padding:6px 10px 5px;border-radius:3px;font-family:'IBM Plex Mono',monospace;
- font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.8;text-align:center;line-height:1.3}
-@media(max-width:620px){.sello{display:none}}
-
+.intro{font-size:16px;color:var(--suave);margin-top:14px;max-width:54ch}
+.intro b{color:var(--tinta)}
 .progreso{position:sticky;top:0;background:var(--papel);padding:12px 0 14px;z-index:20;
  border-bottom:1px solid var(--linea);margin-bottom:24px}
 .barra{height:5px;background:var(--papel2);border-radius:3px;overflow:hidden}
@@ -34,12 +30,11 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:clamp(25px,6vw
 .pasos{display:flex;justify-content:space-between;margin-top:7px;
  font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;
  text-transform:uppercase;color:var(--suave)}
-
 section[data-paso]{display:none;animation:entra .22s ease}
 section[data-paso].on{display:block}
 @keyframes entra{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 h2{font-family:'Fraunces',serif;font-weight:600;font-size:24px;letter-spacing:-.02em;margin-bottom:4px}
-.pista{font-size:15px;color:var(--suave);margin-bottom:20px;max-width:52ch}
+.pista{font-size:15px;color:var(--suave);margin-bottom:20px;max-width:54ch}
 .campo{margin-bottom:16px}
 .par{display:flex;gap:12px;flex-wrap:wrap}
 .par .campo{flex:1 1 210px}
@@ -51,18 +46,15 @@ input:focus,textarea:focus{outline:2px solid var(--violeta);outline-offset:0;bor
 input.mal{border-color:var(--rojo);background:#F7EEEC}
 textarea{min-height:86px;resize:vertical;line-height:1.5}
 .ayuda{font-size:13.5px;color:var(--suave);margin-top:4px}
-
-.cert{margin:10px 0 4px;display:flex;flex-wrap:wrap;gap:6px}
-.cert .et{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;
+.cert,.chk,.opc{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+.cert .et,.opc .et{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;
  text-transform:uppercase;color:var(--suave);width:100%;margin-bottom:3px}
-.cert label,.chk label{display:inline-flex;align-items:center;gap:6px;margin:0;padding:6px 11px;
- border:1px solid var(--linea);border-radius:2px;font-family:'Karla',sans-serif;font-size:14px;
+.cert label,.chk label,.opc label{display:inline-flex;align-items:center;gap:6px;margin:0;padding:7px 12px;
+ border:1px solid var(--linea);border-radius:2px;font-family:'Karla',sans-serif;font-size:14.5px;
  text-transform:none;letter-spacing:0;color:var(--tinta);cursor:pointer;background:#F6F4EE}
-.cert input,.chk input{accent-color:var(--violeta)}
-.cert label:has(input:checked),.chk label:has(input:checked){border-color:var(--violeta);
- background:#E7E1F0;color:var(--violeta);font-weight:700}
-.chk{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
-
+.cert input,.chk input,.opc input{accent-color:var(--violeta)}
+.cert label:has(input:checked),.chk label:has(input:checked),.opc label:has(input:checked){
+ border-color:var(--violeta);background:#E7E1F0;color:var(--violeta);font-weight:700}
 .nav{display:flex;gap:10px;margin-top:30px;padding-top:20px;border-top:1px solid var(--linea)}
 button{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
  padding:14px 22px;border-radius:2px;cursor:pointer;border:1.5px solid var(--tinta)}
@@ -71,16 +63,15 @@ button{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;
 button:disabled{opacity:.45;cursor:default}
 button:hover:not(:disabled){opacity:.85}
 .nav .principal{margin-left:auto}
-
 .aviso{border-left:3px solid var(--ocre);background:var(--papel2);padding:14px 16px;
- margin-bottom:26px;font-size:15.5px}
+ margin-bottom:22px;font-size:15.5px}
 .error{border-left-color:var(--rojo);background:#F7EEEC}
 #fin{display:none;text-align:center;padding:50px 0}
 #fin.on{display:block}
 #fin .marca{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;
  text-transform:uppercase;color:var(--verde);margin-bottom:14px}
 #fin h2{font-size:30px;margin-bottom:10px}
-#fin p{color:var(--suave);max-width:44ch;margin:0 auto 26px}
+#fin p{color:var(--suave);max-width:46ch;margin:0 auto 26px}
 #fallo{display:none;margin-top:22px;text-align:left}
 #fallo.on{display:block}
 #volcado{min-height:200px;font-family:'IBM Plex Mono',monospace;font-size:12.5px}
@@ -92,125 +83,144 @@ footer{margin-top:44px;border-top:1px solid var(--linea);padding-top:18px;
 <div class="wrap">
 
 <header>
-  <div class="sello">Archivo<br>familiar</div>
-  <div class="kicker">Barrios · Vizuete · Carrasco · Muñoz</div>
-  <h1>Cuéntanos lo que sepas</h1>
+  <div class="kicker">Ficha de árbol genealógico</div>
+  <h1 id="titulo">Cuéntanos lo que sepas</h1>
+  <p class="intro">Estamos reuniendo la historia de la familia para dejarla ordenada a los que vengan detrás.
+  <b>Elige tú a la persona de la que quieras hablarnos</b> —un abuelo, una tía, quien sea— y cuéntanos lo que
+  recuerdes de ella. Cuando termines podrás rellenar otra ficha sin volver a escribir tus datos.</p>
 </header>
 
-<div class="progreso">
+<div class="progreso" id="progreso" style="display:none">
   <div class="barra"><i id="barra"></i></div>
-  <div class="pasos"><span id="paso-nom">Empezamos</span><span id="paso-num">1 / 6</span></div>
+  <div class="pasos"><span id="paso-nom">La persona</span><span id="paso-num">1 / 6</span></div>
 </div>
 
 <form id="f" autocomplete="on">
 
-<section data-paso="1" class="on">
-  <h2>Quién nos lo cuenta</h2>
-  <p class="pista">Guardamos tu nombre junto a lo que nos cuentes. No es burocracia: cuando dos personas recuerdan algo distinto, saber quién lo dijo es lo que nos permite decidir.</p>
-  <div class="campo"><label for="informante_nombre">Tu nombre y apellidos</label>
-    <input type="text" id="informante_nombre" name="informante_nombre" required></div>
-  <div class="par">
-    <div class="campo"><label for="informante_parentesco">Qué eres de esta persona</label>
-      <input type="text" id="informante_parentesco" name="informante_parentesco" placeholder="hija, sobrino, nieta…"></div>
-    <div class="campo"><label for="informante_contacto">Teléfono o correo</label>
-      <input type="text" id="informante_contacto" name="informante_contacto"></div>
+<section id="puerta">
+  <h2>Antes de empezar</h2>
+  <p class="pista">Esto no está abierto a cualquiera. Escribe la clave familiar que te hemos pasado
+  para poder entrar. Si no la tienes, pídemela.</p>
+  <div class="campo" style="max-width:320px">
+    <label for="clave">Clave familiar</label>
+    <input type="text" id="clave" name="clave" autocapitalize="characters" autocomplete="off"
+           placeholder="por ejemplo, FAMILIA26">
+    <div class="ayuda" id="clave-msg"></div>
+  </div>
+  <div class="nav" style="border-top:0;padding-top:8px;margin-top:12px">
+    <button type="button" class="principal" id="entrar" style="margin-left:0">Entrar</button>
+  </div>
+</section>
+
+<section data-paso="1">
+  <h2>¿De quién nos vas a hablar?</h2>
+  <p class="pista">Elige a una persona de tu familia. Solo una: si quieres contarnos de varias, al terminar podrás empezar otra ficha.</p>
+  <div class="campo"><label for="persona_nombre">Su nombre y sus dos apellidos</label>
+    <input type="text" id="persona_nombre" name="persona_nombre" required>
+    <div class="ayuda">Los dos apellidos son el dato más valioso de toda la hoja. Si solo sabes uno, ponlo igual.</div></div>
+  <div class="campo"><label for="persona_apodo">Cómo la llamaban en casa</label>
+    <input type="text" id="persona_apodo" name="persona_apodo" placeholder="apodo, mote, nombre corto"></div>
+  <div class="opc"><span class="et">¿Vive actualmente?</span>
+    <label><input type="radio" name="persona_vive" value="Sí">Sí, vive</label>
+    <label><input type="radio" name="persona_vive" value="No">No, ya falleció</label>
+    <label><input type="radio" name="persona_vive" value="No lo sé">No lo sé</label>
   </div>
 </section>
 
 <section data-paso="2">
-  <h2>De quién nos hablas</h2>
-  <p class="pista">Una hoja por persona. Cuando termines podrás empezar otra sin volver a escribir tus datos.</p>
-  <div class="campo"><label for="persona_nombre">Nombre y los dos apellidos</label>
-    <input type="text" id="persona_nombre" name="persona_nombre" required>
-    <div class="ayuda">Los dos apellidos son el dato más valioso de toda la hoja. Si solo sabes uno, ponlo igual.</div></div>
-  <div class="par">
-    <div class="campo"><label for="persona_apodo">Cómo la llamaban en casa</label>
-      <input type="text" id="persona_apodo" name="persona_apodo" placeholder="apodo, mote, nombre corto"></div>
-    <div class="campo"><label for="persona_vive">¿Vive?</label>
-      <input type="text" id="persona_vive" name="persona_vive" placeholder="sí / no / no lo sé"></div>
-  </div>
+  <h2>¿Y tú quién eres?</h2>
+  <p class="pista">Guardamos tu nombre junto a lo que nos cuentes. No es burocracia: cuando dos personas recuerdan algo distinto, saber quién lo contó es lo que nos permite decidir.</p>
+  <div class="campo"><label for="informante_nombre">Tu nombre y tus apellidos</label>
+    <input type="text" id="informante_nombre" name="informante_nombre" required></div>
+  <div class="campo"><label for="informante_parentesco" id="lbl-par">Qué eres tú de esa persona</label>
+    <input type="text" id="informante_parentesco" name="informante_parentesco" placeholder="su hija, su sobrino, su nieta…"></div>
+  <div class="campo"><label for="informante_contacto">Tu teléfono o tu correo</label>
+    <input type="text" id="informante_contacto" name="informante_contacto">
+    <div class="ayuda">El tuyo, no el suyo. Solo lo usamos si necesitamos preguntarte algo sobre lo que nos cuentes.</div></div>
 </section>
 
 <section data-paso="3">
-  <h2>Cuándo y dónde</h2>
-  <p class="pista">Lo que sepas. «Hacia 1915» vale mucho más que una casilla vacía.</p>
+  <h2 id="h-fechas">Cuándo y dónde</h2>
+  <p class="pista">Lo que sepas. Un «hacia 1915» vale mucho más que una casilla vacía.</p>
   <div class="par">
-    <div class="campo"><label for="nac_fecha">Nacimiento — fecha</label>
+    <div class="campo"><label for="nac_fecha">Cuándo nació</label>
       <input type="text" id="nac_fecha" name="nac_fecha" placeholder="4/10/1912, 1948, hacia 1888…"></div>
-    <div class="campo"><label for="nac_lugar">Nacimiento — pueblo</label>
+    <div class="campo"><label for="nac_lugar">En qué pueblo o ciudad</label>
       <input type="text" id="nac_lugar" name="nac_lugar"></div>
   </div>
-  <div class="cert"><span class="et">¿Cómo de seguro estás?</span>
+  <div class="cert"><span class="et">¿Cómo de seguro estás de esto?</span>
     <label><input type="radio" name="nac_certeza" value="Lo sé con seguridad">Lo sé seguro</label>
     <label><input type="radio" name="nac_certeza" value="Lo recuerdo pero no del todo">Creo recordarlo</label>
     <label><input type="radio" name="nac_certeza" value="Me lo contaron">Me lo contaron</label>
     <label><input type="radio" name="nac_certeza" value="Es una suposición">Suposición mía</label>
   </div>
-  <div class="par" style="margin-top:22px">
-    <div class="campo"><label for="def_fecha">Fallecimiento — fecha</label>
-      <input type="text" id="def_fecha" name="def_fecha"></div>
-    <div class="campo"><label for="def_lugar">Fallecimiento — pueblo</label>
-      <input type="text" id="def_lugar" name="def_lugar">
-      <div class="ayuda">Donde murió, aunque viviera en otro sitio.</div></div>
-  </div>
-  <div class="campo"><label for="def_entierro">Dónde está enterrada</label>
-    <input type="text" id="def_entierro" name="def_entierro" placeholder="cementerio, nicho, panteón">
-    <div class="ayuda">Las lápidas llevan fechas exactas.</div></div>
-  <div class="cert"><span class="et">¿Cómo de seguro estás?</span>
-    <label><input type="radio" name="def_certeza" value="Lo sé con seguridad">Lo sé seguro</label>
-    <label><input type="radio" name="def_certeza" value="Lo recuerdo pero no del todo">Creo recordarlo</label>
-    <label><input type="radio" name="def_certeza" value="Me lo contaron">Me lo contaron</label>
-    <label><input type="radio" name="def_certeza" value="Es una suposición">Suposición mía</label>
+  <div id="bloque-def" style="display:none">
+    <div style="border-top:1px solid var(--linea);margin:26px 0 20px"></div>
+    <div class="par">
+      <div class="campo"><label for="def_fecha">Cuándo falleció</label>
+        <input type="text" id="def_fecha" name="def_fecha"></div>
+      <div class="campo"><label for="def_lugar">En qué pueblo o ciudad</label>
+        <input type="text" id="def_lugar" name="def_lugar">
+        <div class="ayuda">El sitio donde murió, aunque viviera en otro.</div></div>
+    </div>
+    <div class="campo"><label for="def_entierro">Dónde está enterrada</label>
+      <input type="text" id="def_entierro" name="def_entierro" placeholder="cementerio, nicho, panteón familiar"></div>
+    <div class="cert"><span class="et">¿Cómo de seguro estás de esto?</span>
+      <label><input type="radio" name="def_certeza" value="Lo sé con seguridad">Lo sé seguro</label>
+      <label><input type="radio" name="def_certeza" value="Lo recuerdo pero no del todo">Creo recordarlo</label>
+      <label><input type="radio" name="def_certeza" value="Me lo contaron">Me lo contaron</label>
+      <label><input type="radio" name="def_certeza" value="Es una suposición">Suposición mía</label>
+    </div>
   </div>
 </section>
 
 <section data-paso="4">
-  <h2>Su familia</h2>
-  <p class="pista">Los nombres de los padres son lo que permite subir una generación entera. Es la parte que más rinde de todo el formulario.</p>
+  <h2 id="h-familia">Su familia</h2>
+  <p class="pista">Los nombres de sus padres son lo que permite subir una generación entera. Es la parte que más rinde de todo el formulario.</p>
   <div class="par">
     <div class="campo"><label for="padre">Su padre — nombre y dos apellidos</label>
       <input type="text" id="padre" name="padre"></div>
     <div class="campo"><label for="madre">Su madre — nombre y dos apellidos</label>
       <input type="text" id="madre" name="madre"></div>
   </div>
-  <div class="campo"><label for="padres_notas">De dónde eran y a qué se dedicaban</label>
+  <div class="campo"><label for="padres_notas">De dónde eran sus padres y a qué se dedicaban</label>
     <textarea id="padres_notas" name="padres_notas"></textarea></div>
-  <div class="cert"><span class="et">¿Cómo de seguro estás?</span>
+  <div class="cert"><span class="et">¿Cómo de seguro estás de esto?</span>
     <label><input type="radio" name="padres_certeza" value="Lo sé con seguridad">Lo sé seguro</label>
     <label><input type="radio" name="padres_certeza" value="Lo recuerdo pero no del todo">Creo recordarlo</label>
     <label><input type="radio" name="padres_certeza" value="Me lo contaron">Me lo contaron</label>
     <label><input type="radio" name="padres_certeza" value="Es una suposición">Suposición mía</label>
   </div>
-  <div class="campo" style="margin-top:22px"><label for="hermanos">Sus hermanos y hermanas</label>
+  <div class="campo" style="margin-top:24px"><label for="hermanos">Sus hermanos y hermanas</label>
     <textarea id="hermanos" name="hermanos" placeholder="Uno por línea, con el año o el oficio si lo sabes."></textarea>
-    <div class="ayuda">Si alguno murió de pequeño, ponlo también. Son los que más se pierden.</div></div>
+    <div class="ayuda">Si alguno murió siendo pequeño, ponlo también. Son los que primero se pierden.</div></div>
   <div class="campo"><label for="conyuge">Con quién se casó — nombre y dos apellidos</label>
     <input type="text" id="conyuge" name="conyuge"></div>
   <div class="par">
     <div class="campo"><label for="mat_fecha">Cuándo se casaron</label>
       <input type="text" id="mat_fecha" name="mat_fecha"></div>
-    <div class="campo"><label for="mat_lugar">Dónde</label>
+    <div class="campo"><label for="mat_lugar">Dónde se casaron</label>
       <input type="text" id="mat_lugar" name="mat_lugar"></div>
   </div>
-  <div class="campo"><label for="mat_suegros">De dónde era y quiénes eran sus padres</label>
+  <div class="campo"><label for="mat_suegros">De dónde era su pareja y quiénes eran sus padres</label>
     <textarea id="mat_suegros" name="mat_suegros"></textarea></div>
-  <div class="campo"><label for="mat_otros">¿Hubo más de un matrimonio?</label>
+  <div class="campo"><label for="mat_otros">¿Se casó más de una vez?</label>
     <textarea id="mat_otros" name="mat_otros" placeholder="Segundas nupcias, viudedades, separaciones."></textarea>
-    <div class="ayuda">Importa: explican hermanastros y apellidos que luego no cuadran.</div></div>
+    <div class="ayuda">Importa más de lo que parece: explican hermanastros y apellidos que luego no cuadran.</div></div>
   <div class="cert"><span class="et">¿Cómo de seguro estás del matrimonio?</span>
     <label><input type="radio" name="mat_certeza" value="Lo sé con seguridad">Lo sé seguro</label>
     <label><input type="radio" name="mat_certeza" value="Lo recuerdo pero no del todo">Creo recordarlo</label>
     <label><input type="radio" name="mat_certeza" value="Me lo contaron">Me lo contaron</label>
     <label><input type="radio" name="mat_certeza" value="Es una suposición">Suposición mía</label>
   </div>
-  <div class="campo" style="margin-top:22px"><label for="hijos">Sus hijos e hijas</label>
+  <div class="campo" style="margin-top:24px"><label for="hijos">Sus hijos e hijas</label>
     <textarea id="hijos" name="hijos" placeholder="Uno por línea, con el año si lo sabes."></textarea>
     <div class="ayuda">Incluye a los que murieron pequeños y a los que se criaron en la casa sin ser hijos propios.</div></div>
 </section>
 
 <section data-paso="5">
-  <h2>Su vida</h2>
-  <p class="pista">Oficios, casas y tierras. Todo esto deja papeles que luego se pueden pedir en un archivo.</p>
+  <h2 id="h-vida">Su vida</h2>
+  <p class="pista">Oficios, casas y tierras. Todo esto deja papeles que después se pueden pedir en un archivo.</p>
   <div class="campo"><label for="oficios">A qué se dedicó</label>
     <textarea id="oficios" name="oficios" placeholder="Oficios, empresas, negocios, cargos."></textarea>
     <div class="ayuda">Con los nombres de las empresas si los recuerdas.</div></div>
@@ -219,15 +229,15 @@ footer{margin-top:44px;border-top:1px solid var(--linea);padding-top:18px;
     <div class="ayuda">Las direcciones antiguas son oro: con ellas se localiza el padrón.</div></div>
   <div class="campo"><label for="propiedades">Casas, tierras y negocios</label>
     <textarea id="propiedades" name="propiedades" placeholder="Fincas y sus nombres, solares, comercios, molinos, tiendas. También lo que se vendió o se perdió."></textarea></div>
-  <div class="campo"><label for="episodios">Guerra, mili, emigración, cárcel</label>
+  <div class="campo"><label for="episodios">Guerra, mili, emigración</label>
     <textarea id="episodios" name="episodios"></textarea>
-    <div class="ayuda">Aunque sea un rumor, cuéntalo. Se marca como sin confirmar.</div></div>
+    <div class="ayuda">Todo esto genera documentos oficiales que se pueden pedir. Aunque sea algo que oíste de pasada, cuéntalo: lo anotamos como sin confirmar.</div></div>
 </section>
 
 <section data-paso="6">
-  <h2>Papeles y memoria</h2>
+  <h2 id="h-papeles">Papeles y recuerdos</h2>
   <p class="pista">La última parte, y la que no está en ningún archivo del mundo.</p>
-  <div class="campo"><label>¿Guardas algo de esta persona?</label>
+  <div class="campo"><label>¿Guardas algún papel u objeto suyo?</label>
     <div class="chk" id="docs">
       <label><input type="checkbox" value="Libro de familia">Libro de familia</label>
       <label><input type="checkbox" value="Partidas o certificados">Partidas o certificados</label>
@@ -243,18 +253,18 @@ footer{margin-top:44px;border-top:1px solid var(--linea);padding-top:18px;
   <div class="campo"><label for="documentos_notas">Cuéntanos qué son</label>
     <textarea id="documentos_notas" name="documentos_notas"></textarea>
     <div class="ayuda">Aunque estén rotos, aunque no se entiendan, aunque no sepas de quién son. Una foto con el móvil ya nos vale.</div></div>
-  <div class="campo"><label for="recuerdos">Lo que se contaba de ella</label>
+  <div class="campo"><label for="recuerdos" id="lbl-rec">Lo que se contaba de esa persona</label>
     <textarea id="recuerdos" name="recuerdos" style="min-height:150px"
       placeholder="Anécdotas, dichos, cómo era, qué le gustaba, qué se contaba en las comidas."></textarea>
     <div class="ayuda">Cuanto más largo, mejor. Esto es lo único que no se puede encontrar en ningún registro.</div></div>
-  <div class="campo"><label for="quien_mas">¿Quién más sabría de esta persona?</label>
+  <div class="campo"><label for="quien_mas" id="lbl-mas">¿Quién más de la familia sabría de esa persona?</label>
     <textarea id="quien_mas" name="quien_mas" placeholder="Con un teléfono si puede ser."></textarea>
     <div class="ayuda">Así es como aparecen las ramas de la familia que nadie sabía que existían.</div></div>
   <div class="campo"><label for="extra">¿Algo que no te hayamos preguntado?</label>
     <textarea id="extra" name="extra"></textarea></div>
 </section>
 
-<div class="nav" id="nav">
+<div class="nav" id="nav" style="display:none">
   <button type="button" class="otro" id="atras">← Atrás</button>
   <button type="button" class="principal" id="siguiente">Siguiente →</button>
   <button type="button" class="principal" id="enviar" style="display:none">Enviar la ficha</button>
@@ -267,14 +277,14 @@ footer{margin-top:44px;border-top:1px solid var(--linea);padding-top:18px;
   <p>Lo que has contado queda guardado con tu nombre al lado, para que dentro de treinta años se sepa quién lo dijo.</p>
   <button type="button" class="principal" id="otra">Contar de otra persona</button>
   <div id="fallo">
-    <div class="aviso error"><b>No se ha podido guardar.</b> Puede ser la conexión. Copia este texto y mándaselo a Manuel por WhatsApp: no se pierde nada.</div>
+    <div class="aviso error"><b>No se ha podido guardar.</b> Puede ser la conexión. Copia este texto y mándaselo a Manuel por WhatsApp: no se pierde nada de lo que has escrito.</div>
     <textarea id="volcado" readonly></textarea>
     <div style="margin-top:12px"><button type="button" class="otro" id="copiar">Copiar el texto</button></div>
   </div>
 </div>
 
 <footer>
-  Archivo familiar Barrios – Carrasco. Nadie más que la familia ve estas fichas: no se publican y no son visibles para quien las rellena.
+  Archivo familiar. Estas fichas no se publican: solo las ve quien está reuniendo la historia de la familia.
 </footer>
 </div>
 
@@ -282,12 +292,79 @@ footer{margin-top:44px;border-top:1px solid var(--linea);padding-top:18px;
 /* ── Configuración ─────────────────────────────────────────── */
 const SUPABASE_URL = 'https://bcwgezdbqkvuellkzkvs.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_HdXKLLbydgDi2ndpUn1vjQ_Sd_sne5K';
-const NOMBRES = ['Empezamos','La persona','Fechas','Familia','Su vida','Papeles'];
+const NOMBRES = ['La persona','Quién eres','Fechas','Familia','Su vida','Papeles'];
 const TOTAL = 6;
 /* ──────────────────────────────────────────────────────────── */
 
 const $ = s => document.querySelector(s);
 let paso = 1;
+
+/* ── puerta de entrada ─────────────────────────────────────── */
+async function comprobarClave(){
+  const c = ($('#clave').value || '').trim().toUpperCase();
+  if(c.length < 3){ $('#clave-msg').textContent = 'Escribe la clave.'; return; }
+  const b = $('#entrar'); b.disabled = true; b.textContent = 'Comprobando…';
+  $('#clave-msg').textContent = '';
+  try{
+    const r = await fetch(SUPABASE_URL + '/rest/v1/rpc/clave_ok', {
+      method:'POST',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,
+               'Content-Type':'application/json'},
+      body: JSON.stringify({p_clave: c})
+    });
+    const ok = r.ok && (await r.json()) === true;
+    if(ok){
+      $('#puerta').style.display = 'none';
+      $('#progreso').style.display = '';
+      $('#nav').style.display = '';
+      $('section[data-paso="1"]').classList.add('on');
+      pinta();
+    }else{
+      $('#clave-msg').textContent = 'Esa clave no vale. Compruébala o pídemela otra vez.';
+      $('#clave').classList.add('mal');
+    }
+  }catch(e){
+    $('#clave-msg').textContent = 'No se ha podido comprobar. ¿Tienes conexión?';
+  }
+  b.disabled = false; b.textContent = 'Entrar';
+}
+$('#entrar').onclick = comprobarClave;
+$('#clave').addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); comprobarClave(); } });
+$('#clave').addEventListener('input', () => {
+  $('#clave').classList.remove('mal'); $('#clave-msg').textContent = '';
+});
+
+function nombreCorto(){
+  const v = ($('#persona_nombre').value || '').trim();
+  if(!v) return '';
+  const p = v.split(/\s+/);
+  return p.slice(0, Math.min(2, p.length)).join(' ');
+}
+
+function personaliza(){
+  const n = nombreCorto();
+  $('#titulo').textContent  = n ? 'Cuéntanos lo que sepas de ' + n : 'Cuéntanos lo que sepas';
+  $('#lbl-par').textContent = n ? '¿Qué eres tú de ' + n + '?' : 'Qué eres tú de esa persona';
+  $('#lbl-rec').textContent = n ? 'Lo que se contaba de ' + n : 'Lo que se contaba de esa persona';
+  $('#lbl-mas').textContent = n ? '¿Quién más de la familia sabría de ' + n + '?'
+                               : '¿Quién más de la familia sabría de esa persona?';
+  if(n){
+    $('#h-familia').textContent = 'La familia de ' + n;
+    $('#h-vida').textContent    = 'La vida de ' + n;
+  }
+}
+$('#persona_nombre').addEventListener('input', personaliza);
+
+function ajustaVive(){
+  const e = document.querySelector('input[name=persona_vive]:checked');
+  const vive = e && e.value === 'Sí';
+  $('#bloque-def').style.display = vive ? 'none' : '';
+  if(vive){
+    ['def_fecha','def_lugar','def_entierro'].forEach(id => $('#'+id).value = '');
+    document.querySelectorAll('input[name=def_certeza]').forEach(r => r.checked = false);
+  }
+}
+document.querySelectorAll('input[name=persona_vive]').forEach(r => r.addEventListener('change', ajustaVive));
 
 function pinta(){
   document.querySelectorAll('section[data-paso]').forEach(s =>
@@ -301,20 +378,22 @@ function pinta(){
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
-function valida(){
-  if(paso === 1) return exige('informante_nombre');
-  if(paso === 2) return exige('persona_nombre');
-  return true;
-}
 function exige(id){
   const e = $('#'+id);
   const ok = e.value.trim().length >= 2;
   e.classList.toggle('mal', !ok);
-  if(!ok){ e.focus(); }
+  if(!ok) e.focus();
   return ok;
 }
+function valida(){
+  if(paso === 1) return exige('persona_nombre');
+  if(paso === 2) return exige('informante_nombre');
+  return true;
+}
 
-$('#siguiente').onclick = () => { if(valida() && paso < TOTAL){ paso++; pinta(); } };
+$('#siguiente').onclick = () => {
+  if(valida() && paso < TOTAL){ paso++; personaliza(); ajustaVive(); pinta(); }
+};
 $('#atras').onclick = () => { if(paso > 1){ paso--; pinta(); } };
 
 function recoge(){
@@ -325,25 +404,24 @@ function recoge(){
   });
   const tipos = [...document.querySelectorAll('#docs input:checked')].map(c => c.value);
   if(tipos.length) d.documentos_tipos = tipos;
+  d.clave = ($('#clave').value || '').trim().toUpperCase();
   return d;
 }
 
 function aTexto(d){
-  const et = {informante_nombre:'Rellenada por', informante_parentesco:'Parentesco',
-    informante_contacto:'Contacto', persona_nombre:'PERSONA', persona_apodo:'Apodo',
-    persona_vive:'¿Vive?', nac_fecha:'Nacimiento', nac_lugar:'Lugar de nacimiento',
-    nac_certeza:'Seguridad', def_fecha:'Fallecimiento', def_lugar:'Lugar', def_entierro:'Enterrada en',
-    def_certeza:'Seguridad', padre:'Padre', madre:'Madre', padres_notas:'Sobre los padres',
-    padres_certeza:'Seguridad', hermanos:'Hermanos', conyuge:'Cónyuge', mat_fecha:'Boda',
-    mat_lugar:'Lugar de la boda', mat_suegros:'Familia del cónyuge', mat_otros:'Otros matrimonios',
-    mat_certeza:'Seguridad', hijos:'Hijos', oficios:'Oficios', viviendas:'Dónde vivió',
-    propiedades:'Propiedades', episodios:'Guerra, mili, emigración',
-    documentos_tipos:'Papeles que guarda', documentos_notas:'Sobre los papeles',
-    recuerdos:'Lo que se contaba', quien_mas:'Quién más sabría', extra:'Añadidos'};
-  const L = ['FICHA FAMILIAR — ' + (d.persona_nombre||''), ''];
-  for(const k in et){
-    if(d[k]) L.push(et[k] + ': ' + (Array.isArray(d[k]) ? d[k].join(', ') : d[k]));
-  }
+  const et = {persona_nombre:'PERSONA', persona_apodo:'Apodo', persona_vive:'¿Vive?',
+    informante_nombre:'Rellenada por', informante_parentesco:'Es su', informante_contacto:'Su contacto',
+    nac_fecha:'Nacimiento', nac_lugar:'Lugar de nacimiento', nac_certeza:'Seguridad',
+    def_fecha:'Fallecimiento', def_lugar:'Lugar', def_entierro:'Enterrada en', def_certeza:'Seguridad',
+    padre:'Padre', madre:'Madre', padres_notas:'Sobre los padres', padres_certeza:'Seguridad',
+    hermanos:'Hermanos', conyuge:'Cónyuge', mat_fecha:'Boda', mat_lugar:'Lugar de la boda',
+    mat_suegros:'Familia del cónyuge', mat_otros:'Otros matrimonios', mat_certeza:'Seguridad',
+    hijos:'Hijos', oficios:'Oficios', viviendas:'Dónde vivió', propiedades:'Propiedades',
+    episodios:'Guerra, mili, emigración', documentos_tipos:'Papeles que guarda',
+    documentos_notas:'Sobre los papeles', recuerdos:'Lo que se contaba',
+    quien_mas:'Quién más sabría', extra:'Añadidos'};
+  const L = ['FICHA DE ÁRBOL GENEALÓGICO', d.persona_nombre || '', ''];
+  for(const k in et) if(d[k]) L.push(et[k] + ': ' + (Array.isArray(d[k]) ? d[k].join(', ') : d[k]));
   return L.join('\n');
 }
 
@@ -354,12 +432,8 @@ $('#enviar').onclick = async () => {
   try{
     const r = await fetch(SUPABASE_URL + '/rest/v1/ficha', {
       method:'POST',
-      headers:{
-        'apikey': SUPABASE_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_KEY,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
-      },
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,
+               'Content-Type':'application/json','Prefer':'return=minimal'},
       body: JSON.stringify(datos)
     });
     if(!r.ok) throw new Error('HTTP ' + r.status + ' ' + (await r.text()).slice(0,200));
@@ -373,11 +447,15 @@ $('#enviar').onclick = async () => {
 
 function termina(hubofallo){
   $('#f').style.display = 'none';
-  $('.progreso').style.display = 'none';
+  $('#progreso').style.display = 'none';
   $('#fin').classList.add('on');
   $('#fallo').classList.toggle('on', hubofallo);
-  if(hubofallo){ $('#fin .marca').textContent = 'No se ha guardado';
-    $('#fin .marca').style.color = '#8C3A2E'; $('#fin h2').textContent = 'Vaya'; $('#fin p').style.display='none'; }
+  if(hubofallo){
+    $('#fin .marca').textContent = 'No se ha guardado';
+    $('#fin .marca').style.color = 'var(--rojo)';
+    $('#fin h2').textContent = 'Vaya';
+    $('#fin p').style.display = 'none';
+  }
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
@@ -388,20 +466,20 @@ $('#copiar').onclick = async () => {
 };
 
 $('#otra').onclick = () => {
-  // se conservan los datos de quien rellena, se limpia todo lo demás
-  const guarda = ['informante_nombre','informante_parentesco','informante_contacto']
+  const guarda = ['informante_nombre','informante_parentesco','informante_contacto','clave']
     .map(id => [id, $('#'+id).value]);
   $('#f').reset();
   guarda.forEach(([id,v]) => $('#'+id).value = v);
   $('#fin').classList.remove('on');
   $('#fallo').classList.remove('on');
   $('#f').style.display = '';
-  $('.progreso').style.display = '';
+  $('#progreso').style.display = '';
   $('#enviar').disabled = false; $('#enviar').textContent = 'Enviar la ficha';
-  paso = 2; pinta();
+  $('#bloque-def').style.display = 'none';
+  paso = 1; personaliza(); pinta();
 };
 
-pinta();
+personaliza();
 </script>
 </body>
 </html>
