@@ -44,6 +44,10 @@ input[type=text],textarea{width:100%;padding:11px 12px;border:1px solid var(--li
  background:#F6F4EE;color:var(--tinta);font-family:'Karla',sans-serif;font-size:16.5px}
 input:focus,textarea:focus{outline:2px solid var(--violeta);outline-offset:0;border-color:var(--violeta)}
 input.mal{border-color:var(--rojo);background:#F7EEEC}
+input[data-pre="1"],textarea[data-pre="1"]{border-left:3px solid var(--verde);background:#F2F5EF}
+input.corregido,textarea.corregido{border-left-color:var(--ocre);background:#FAF4E8}
+.ya{font-size:12.5px;color:var(--verde);margin-top:3px;font-style:italic}
+.ya.alerta{color:var(--ocre);font-style:normal;font-weight:500}
 textarea{min-height:86px;resize:vertical;line-height:1.5}
 .ayuda{font-size:13.5px;color:var(--suave);margin-top:4px}
 .cert,.chk,.opc{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
@@ -299,6 +303,16 @@ const TOTAL = 6;
 const $ = s => document.querySelector(s);
 let paso = 1;
 
+/* ── ficha precargada desde el árbol ──────────────────────── */
+const url = new URLSearchParams(location.search);
+let PRE = {};
+try {
+  const d = url.get('d');
+  if (d) PRE = JSON.parse(decodeURIComponent(escape(atob(d.replace(/-/g, '+').replace(/_/g, '/')))));
+} catch (e) { PRE = {}; }
+if (url.get('n') && !PRE.n) PRE = { id: url.get('id'), n: url.get('n'), v: url.get('v'), o: url.get('o'), k: url.get('k') };
+let personaId = PRE.id || '';
+
 /* ── puerta de entrada ─────────────────────────────────────── */
 async function comprobarClave(){
   const c = ($('#clave').value || '').trim().toUpperCase();
@@ -405,6 +419,16 @@ function recoge(){
   const tipos = [...document.querySelectorAll('#docs input:checked')].map(c => c.value);
   if(tipos.length) d.documentos_tipos = tipos;
   d.clave = ($('#clave').value || '').trim().toUpperCase();
+  if (personaId) d.persona_id = personaId;
+  d.origen = ['arbol','datos','directo'].includes(PRE.o) ? PRE.o : 'directo';
+  /* qué venía precargado y qué se ha cambiado */
+  const cambios = [];
+  document.querySelectorAll('[data-pre="1"]').forEach(e => {
+    const k = Object.keys(CAMPOS_PRE).find(x => CAMPOS_PRE[x] === e.id);
+    if (k && PRE[k] && e.value.trim() !== String(PRE[k]).trim())
+      cambios.push(`${e.id}: teníamos «${PRE[k]}» · dice «${e.value.trim()}»`);
+  });
+  if (cambios.length) d.correcciones = cambios.join(' | ');
   return d;
 }
 
@@ -469,6 +493,7 @@ $('#otra').onclick = () => {
   const guarda = ['informante_nombre','informante_parentesco','informante_contacto','clave']
     .map(id => [id, $('#'+id).value]);
   $('#f').reset();
+  personaId = '';
   guarda.forEach(([id,v]) => $('#'+id).value = v);
   $('#fin').classList.remove('on');
   $('#fallo').classList.remove('on');
@@ -478,6 +503,51 @@ $('#otra').onclick = () => {
   $('#bloque-def').style.display = 'none';
   paso = 1; personaliza(); pinta();
 };
+
+
+/* ── precarga desde el árbol ── */
+const CAMPOS_PRE = {
+  n:'persona_nombre', ap:'persona_apodo',
+  nf:'nac_fecha', nl:'nac_lugar', df:'def_fecha', dl:'def_lugar',
+  pa:'padre', ma:'madre', he:'hermanos', co:'conyuge', hi:'hijos', of:'oficios'
+};
+let nPre = 0;
+if (PRE.n) {
+  for (const [k, campo] of Object.entries(CAMPOS_PRE)) {
+    const e = $('#' + campo);
+    if (e && PRE[k]) { e.value = PRE[k]; e.dataset.pre = '1'; nPre++; }
+  }
+  if (PRE.v === '1' || PRE.v === '0') {
+    const r = document.querySelector('input[name=persona_vive][value="' + (PRE.v === '1' ? 'Sí' : 'No') + '"]');
+    if (r) { r.checked = true; ajustaVive(); }
+  }
+  /* los campos que ya traen dato se marcan y avisan si se cambian */
+  document.querySelectorAll('[data-pre="1"]').forEach(e => {
+    const original = e.value;
+    const et = document.createElement('div');
+    et.className = 'ya';
+    et.textContent = 'Esto ya lo teníamos. Si no es correcto, corrígelo.';
+    e.parentNode.insertBefore(et, e.nextSibling);
+    e.addEventListener('input', () => {
+      const cambiado = e.value.trim() !== original.trim();
+      e.classList.toggle('corregido', cambiado);
+      et.textContent = cambiado
+        ? `Antes teníamos: «${original}». Guardaremos las dos versiones.`
+        : 'Esto ya lo teníamos. Si no es correcto, corrígelo.';
+      et.classList.toggle('alerta', cambiado);
+    });
+  });
+  const av = document.createElement('div');
+  av.className = 'aviso';
+  av.style.margin = '0 0 20px';
+  av.innerHTML = `<b>Ficha de ${PRE.n}.</b> Hemos rellenado los ${nPre} datos que ya teníamos.
+    Completa los huecos y corrige lo que esté mal: si cambias algo, no se borra lo anterior,
+    se guardan las dos versiones y ya decidiremos cuál vale.`;
+  const s1 = document.querySelector('section[data-paso="1"]');
+  s1.insertBefore(av, s1.querySelector('.pista').nextSibling);
+  $('#titulo').textContent = 'Completar la ficha de ' + PRE.n;
+}
+if (PRE.k) $('#clave').value = String(PRE.k).toUpperCase();
 
 personaliza();
 </script>
