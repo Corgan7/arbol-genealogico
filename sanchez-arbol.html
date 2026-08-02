@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#141C18">
+<title>Mi árbol · Sánchez – Martín</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  --mesa:#141C18; --mesa2:#1B2621; --mesa3:#22302A;
+  --papel:#EDE7D8; --papel2:#A8BDB1;
+  --linea:#2E3F37; --linea2:#3C5148;
+  --oro:#D8A340; --foco:#F0C46A;
+  --doc:#6FC095; --mem:#A98FD8; --hip:#D8776A; --falta:#7E9188;
+  --pat:#7FA8D8; --mat:#7FCBA4; --pol:#C29AD8; --yo:#D8A340;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;background:var(--mesa)}
+body{color:var(--papel);font-family:'Karla',system-ui,sans-serif;font-size:16px;line-height:1.45;overscroll-behavior:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+:focus-visible{outline:2px solid var(--foco);outline-offset:2px;border-radius:2px}
+a{color:var(--oro)}
+
+/* ═══ PORTADA ═══ */
+#portada{
+  position:fixed;inset:0;z-index:100;background:var(--mesa);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:24px max(24px,env(safe-area-inset-left)) 24px;
+  overflow-y:auto;
+}
+#portada.off{display:none}
+.p-caja{width:100%;max-width:520px;margin:auto}
+.p-eyebrow{
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--oro);margin-bottom:14px;
+}
+#portada h1{
+  font-family:'Fraunces',Georgia,serif;font-weight:900;
+  font-size:clamp(30px,8.5vw,52px);line-height:.98;letter-spacing:-.035em;margin-bottom:16px;
+}
+#portada h1 em{font-style:normal;color:var(--oro)}
+.p-txt{font-size:16.5px;color:var(--papel2);max-width:44ch;margin-bottom:26px}
+.p-campo{position:relative}
+#nombre{
+  width:100%;background:var(--mesa2);border:1px solid var(--linea2);border-radius:3px;
+  padding:15px 16px;color:var(--papel);font-family:'Karla',sans-serif;font-size:17px;
+}
+#nombre::placeholder{color:var(--falta)}
+#nombre:focus{outline:none;border-color:var(--oro)}
+#p-lista{
+  margin-top:7px;max-height:44vh;overflow-y:auto;
+  background:var(--mesa2);border:1px solid var(--linea2);border-radius:3px;display:none;
+}
+#p-lista.on{display:block}
+#p-lista button{
+  display:block;width:100%;text-align:left;padding:12px 15px;
+  border-bottom:1px solid var(--linea);font-size:15.5px;
+}
+#p-lista button:last-child{border-bottom:0}
+#p-lista button:hover,#p-lista button.sel{background:var(--mesa3)}
+#p-lista .g{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--papel2);margin-top:2px}
+.p-pie{margin-top:24px;font-size:14px;color:var(--falta)}
+.p-pie button{color:var(--oro);text-decoration:underline;text-underline-offset:3px}
+.p-cifras{
+  margin-top:34px;padding-top:18px;border-top:1px solid var(--linea);
+  display:flex;gap:26px;flex-wrap:wrap;
+}
+.p-cifra b{
+  display:block;font-family:'Fraunces',serif;font-weight:900;font-size:26px;
+  line-height:1;color:var(--papel);
+}
+.p-cifra span{
+  font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--papel2);
+}
+
+/* ═══ APP ═══ */
+#barra{
+  position:fixed;top:0;left:0;right:0;z-index:40;
+  background:linear-gradient(180deg,var(--mesa) 62%,rgba(20,28,24,0));
+  padding:max(9px,env(safe-area-inset-top)) 11px 20px;
+  display:flex;align-items:center;gap:8px;pointer-events:none;
+}
+#barra>*{pointer-events:auto}
+#volver{
+  width:38px;height:38px;flex:none;border:1px solid var(--linea2);border-radius:3px;
+  background:var(--mesa2);display:none;align-items:center;justify-content:center;font-size:17px;
+}
+#volver.on{display:flex}
+#volver:hover{background:var(--mesa3)}
+#cab{flex:1;min-width:0}
+#cab .q{
+  font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--oro);
+}
+#cab h1{
+  font-family:'Fraunces',serif;font-weight:600;font-size:clamp(15px,4.4vw,21px);
+  letter-spacing:-.02em;line-height:1.1;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.btn{
+  background:var(--mesa2);border:1px solid var(--linea2);border-radius:3px;
+  padding:8px 11px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+  letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;
+  transition:background .15s,border-color .15s,color .15s;
+}
+.btn:hover{background:var(--mesa3);border-color:var(--papel2)}
+.btn.on{background:var(--oro);color:var(--mesa);border-color:var(--oro);font-weight:600}
+.btn.oro{border-color:var(--oro);color:var(--oro)}
+.btn.oro:hover{background:var(--oro);color:var(--mesa)}
+
+#lienzo{position:fixed;inset:0;touch-action:none;cursor:grab}
+#lienzo.arr{cursor:grabbing}
+#svg{width:100%;height:100%;display:block}
+
+.b-fondo{fill:rgba(255,255,255,.016)}
+.b-linea{stroke:var(--linea);stroke-width:1;vector-effect:non-scaling-stroke}
+#capa-etiq{position:fixed;inset:0;pointer-events:none;z-index:20;overflow:hidden}
+.etiq{position:absolute;left:0;display:flex;align-items:baseline;gap:8px;padding-left:11px;transform:translateY(-50%)}
+.etiq .t{
+  font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--papel2);
+  background:linear-gradient(90deg,var(--mesa) 74%,rgba(20,28,24,0));
+  padding:3px 30px 3px 0;white-space:nowrap;
+}
+.etiq.eco .t{color:var(--oro)}
+
+.enl{fill:none;stroke:var(--linea2);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.enl.dir{stroke:var(--oro);stroke-width:2.4;opacity:.8}
+.enl.par{stroke:var(--papel2);stroke-width:1.2;stroke-dasharray:3 3;opacity:.45}
+.enl.camino{stroke:var(--foco);stroke-width:4;opacity:1;filter:drop-shadow(0 0 6px rgba(240,196,106,.6))}
+
+.nodo{cursor:pointer}
+.nodo rect.caja{fill:var(--mesa2);stroke:var(--linea2);stroke-width:1.2;transition:fill .12s,stroke .12s}
+.nodo:hover rect.caja{fill:var(--mesa3);stroke:var(--papel2)}
+.nodo.casilla rect.caja{fill:none;stroke-dasharray:3 3;stroke:var(--falta)}
+.nodo.dir rect.caja{stroke:var(--oro);stroke-width:1.8}
+.nodo.raiz rect.caja{fill:var(--oro);stroke:var(--foco);stroke-width:2.5}
+.nodo.sel rect.caja{stroke:var(--foco);stroke-width:2.5}
+.nodo.camino rect.caja{stroke:var(--foco);stroke-width:2.6;fill:#2A3529}
+.nodo.tenue{opacity:.2}
+.nodo .nom{font-family:'Karla',sans-serif;font-weight:600;font-size:12.5px;fill:var(--papel)}
+.nodo.raiz .nom,.nodo.raiz .dat{fill:var(--mesa)}
+.nodo .dat{font-family:'IBM Plex Mono',monospace;font-size:9.5px;fill:var(--papel2)}
+.nodo.casilla .nom{fill:var(--falta);font-style:italic;font-weight:400}
+.aviso-falta{font-family:'IBM Plex Mono',monospace;font-size:8.5px;fill:var(--hip)}
+
+#zoom{position:fixed;right:11px;bottom:calc(13px + env(safe-area-inset-bottom));z-index:30;display:flex;flex-direction:column;gap:5px}
+#zoom button{
+  width:42px;height:42px;background:var(--mesa2);border:1px solid var(--linea2);border-radius:3px;
+  font-size:18px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;
+}
+#zoom button:hover{background:var(--mesa3)}
+#zoom button.chico{font-size:8.5px;letter-spacing:.04em;height:34px}
+
+#pie{position:fixed;left:11px;bottom:calc(13px + env(safe-area-inset-bottom));z-index:30;display:flex;gap:5px;flex-wrap:wrap;max-width:calc(100vw - 78px)}
+
+/* ═══ FICHA ═══ */
+#ficha{position:fixed;z-index:50;background:var(--mesa2);display:flex;flex-direction:column;transition:transform .26s cubic-bezier(.2,.8,.3,1)}
+@media(min-width:801px){#ficha{top:0;right:0;bottom:0;width:400px;border-left:1px solid var(--linea2);transform:translateX(101%)}#ficha.on{transform:none}}
+@media(max-width:800px){#ficha{left:0;right:0;bottom:0;max-height:84vh;border-top:1px solid var(--linea2);border-radius:13px 13px 0 0;transform:translateY(101%)}#ficha.on{transform:none}}
+#tira{display:none;padding:9px 0 2px;flex:none;touch-action:none;cursor:grab}
+#tira i{display:block;width:38px;height:4px;border-radius:2px;background:var(--linea2);margin:0 auto}
+@media(max-width:800px){#tira{display:block}}
+#f-cab{padding:13px 18px 12px;border-bottom:1px solid var(--linea);flex:none;display:flex;gap:11px;align-items:flex-start}
+#f-cab h2{font-family:'Fraunces',serif;font-weight:600;font-size:20px;letter-spacing:-.02em;line-height:1.15}
+#f-rel{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--oro);display:block;margin-bottom:3px}
+#f-cerrar{font-size:23px;line-height:1;padding:0 5px;color:var(--papel2);flex:none}
+#f-cerrar:hover{color:var(--papel)}
+#f-cuerpo{flex:1;overflow-y:auto;padding:15px 18px 24px;-webkit-overflow-scrolling:touch}
+#f-pie{padding:10px 18px calc(13px + env(safe-area-inset-bottom));border-top:1px solid var(--linea);flex:none;display:flex;gap:6px}
+#f-pie .btn{flex:1;text-align:center}
+
+.blq{margin-bottom:19px}
+.blq h3{
+  font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--papel2);margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--linea);
+}
+.dt{display:flex;gap:9px;margin-bottom:7px;font-size:14.5px;line-height:1.42}
+.dt .m{flex:none;width:15px;height:15px;border-radius:50%;margin-top:3px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:8px;font-weight:600;border:1px solid}
+.m-doc{color:var(--doc);border-color:var(--doc)}
+.m-mem{color:var(--mem);border-color:var(--mem)}
+.m-hip{color:var(--hip);border-color:var(--hip)}
+.m-falta{color:var(--falta);border-color:var(--falta)}
+.m-viva,.m-out{color:var(--papel2);border-color:var(--papel2)}
+.dt .nota{display:block;font-size:13px;color:var(--papel2);margin-top:2px;padding-left:9px;border-left:1px solid var(--linea2)}
+.dt.falta .t{color:var(--falta)}
+.pl{display:flex;flex-wrap:wrap;gap:5px}
+.pers{background:var(--mesa3);border:1px solid var(--linea2);border-radius:3px;padding:6px 10px;font-size:13.5px;text-align:left;transition:border-color .12s,color .12s}
+.pers:hover{border-color:var(--oro);color:var(--oro)}
+.pers .a{font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--papel2);margin-left:6px}
+
+/* llamada a completar */
+.cta{
+  border:1px solid var(--oro);border-radius:4px;padding:15px 16px;margin:4px 0 18px;
+  background:linear-gradient(160deg,rgba(216,163,64,.10),rgba(216,163,64,.02));
+}
+.cta h4{font-family:'Fraunces',serif;font-weight:600;font-size:17.5px;line-height:1.2;margin-bottom:7px;color:var(--foco)}
+.cta p{font-size:14.5px;color:var(--papel2);margin-bottom:11px}
+.cta .lista{font-size:14px;color:var(--papel2);margin-bottom:13px;padding-left:2px}
+.cta .lista span{display:inline-block;margin:0 8px 4px 0;padding-left:12px;position:relative}
+.cta .lista span::before{content:'·';position:absolute;left:3px;color:var(--oro)}
+.cta a{
+  display:block;text-align:center;background:var(--oro);color:var(--mesa);
+  padding:11px;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:11px;
+  letter-spacing:.09em;text-transform:uppercase;font-weight:600;text-decoration:none;
+}
+.cta a:hover{background:var(--foco)}
+.cta.suave{border-color:var(--linea2);background:linear-gradient(160deg,rgba(216,163,64,.05),transparent)}
+.cta.suave h4{color:var(--papel)}
+.cta.suave a{background:none;border:1px solid var(--oro);color:var(--oro)}
+.cta.suave a:hover{background:var(--oro);color:var(--mesa)}
+.cta.viva{border-color:var(--linea2);background:none}
+.cta.viva h4{color:var(--papel2);font-size:16px}
+.cta.viva a{background:none;border:1px solid var(--linea2);color:var(--papel2)}
+.cta.viva a:hover{border-color:var(--oro);color:var(--oro)}
+.cta .clave{
+  text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+  color:var(--papel2);margin-top:8px;letter-spacing:.05em;
+}
+
+/* el camino */
+.camino-linea{display:flex;gap:9px;margin-bottom:3px;font-size:14.5px;align-items:baseline}
+.camino-linea .paso{font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--oro);flex:none;width:56px;text-align:right}
+.camino-linea b{font-weight:600}
+.camino-linea .y{color:var(--papel2);font-family:'IBM Plex Mono',monospace;font-size:11px}
+.camino-fin{margin-top:11px;padding-top:11px;border-top:1px solid var(--linea);font-size:14.5px;color:var(--foco)}
+
+#aviso{
+  position:fixed;left:50%;transform:translateX(-50%);top:calc(62px + env(safe-area-inset-top));z-index:45;
+  background:var(--mesa3);border:1px solid var(--oro);color:var(--oro);padding:9px 15px;border-radius:3px;
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.07em;
+  opacity:0;transition:opacity .25s;pointer-events:none;max-width:88vw;text-align:center;
+}
+#aviso.on{opacity:1}
+@media(prefers-reduced-motion:reduce){*{transition-duration:.01ms !important;animation-duration:.01ms !important}}
+</style>
+</head>
+<body>
+
+<!-- ═══ PORTADA ═══ -->
+<section id="portada">
+  <div class="p-caja">
+    <div class="p-eyebrow">Archivo familiar Sánchez – Martín</div>
+    <h1>¿Y tú <em>de quién</em> eres?</h1>
+    <p class="p-txt">Escribe tu nombre y verás tu árbol: de dónde vienes, quién estaba antes,
+    y hasta dónde hemos podido llegar hacia atrás. Si no estás en el archivo todavía,
+    busca a alguien de tu casa.</p>
+    <div class="p-campo">
+      <input id="nombre" type="search" placeholder="Tu nombre y apellidos…"
+             autocomplete="off" autocapitalize="words" aria-label="Tu nombre">
+      <div id="p-lista" role="listbox" aria-label="Personas"></div>
+    </div>
+    <p class="p-pie">¿Solo quieres mirar? <button id="p-saltar">Entra por Concepción Sánchez Martín</button></p>
+    <div class="p-cifras">
+      <div class="p-cifra"><b id="c-pers">—</b><span>personas</span></div>
+      <div class="p-cifra"><b id="c-gen">—</b><span>generaciones</span></div>
+      <div class="p-cifra"><b id="c-doc">—</b><span>datos con documento</span></div>
+      <div class="p-cifra"><b id="c-anio">—</b><span>el más antiguo</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ APP ═══ -->
+<div id="lienzo">
+  <svg id="svg" role="img" aria-labelledby="svg-t">
+    <title id="svg-t">Árbol genealógico</title>
+    <g id="mundo"><g id="c-bandas"></g><g id="c-enlaces"></g><g id="c-nodos"></g></g>
+  </svg>
+</div>
+<div id="capa-etiq" aria-hidden="true"></div>
+
+<header id="barra">
+  <button id="volver" aria-label="Volver al árbol anterior">←</button>
+  <div id="cab"><div class="q" id="cab-q"></div><h1 id="cab-n">—</h1></div>
+  <button class="btn" id="btn-amplitud">Con primos</button>
+</header>
+
+<div id="aviso" role="status" aria-live="polite"></div>
+
+<div id="pie">
+  <button class="btn" id="btn-yo">Mi árbol</button>
+  <button class="btn" id="btn-como">Cómo se lee</button>
+</div>
+
+<div id="zoom">
+  <button id="z-mas" aria-label="Acercar">+</button>
+  <button id="z-menos" aria-label="Alejar">−</button>
+  <button id="z-fit" class="chico" aria-label="Encajar">Encajar</button>
+</div>
+
+<aside id="ficha" role="dialog" aria-modal="false" aria-labelledby="f-nom">
+  <div id="tira"><i></i></div>
+  <div id="f-cab">
+    <div style="flex:1;min-width:0"><span id="f-rel"></span><h2 id="f-nom">—</h2></div>
+    <button id="f-cerrar" aria-label="Cerrar">×</button>
+  </div>
+  <div id="f-cuerpo"></div>
+  <div id="f-pie">
+    <button class="btn oro" id="f-arbol">Ver su árbol</button>
+    <button class="btn" id="f-camino">El camino</button>
+  </div>
+</aside>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   ARCHIVO FAMILIAR SÁNCHEZ – MARTÍN
+   Rama de Concepción Sánchez Martín
+   Cantabria · Madrid · La Guardia
+   Estado inicial · 2 de agosto de 2026
+   ══════════════════════════════════════════════════════════════ */
+
+const P = {
+
+/* ─────────── GENERACIÓN 1 · ella y los suyos ─────────── */
+
+csm:{n:'Concepción Sánchez Martín', nac:'1981-03-04', nacLugar:'mad', g:1, d:1, viva:1, r:'yo',
+ pa:['jms','cmc'], cy:['mbc_ext'], h:['hija1_csm','hija2_csm'], sello:'Punto de partida',
+ f:[['Nacida el 4 de marzo de 1981 en Madrid, hospital 12 de Octubre','mem'],
+   ['Licenciada en Administración y Dirección de Empresas','mem','Universidad Complutense de Madrid.'],
+   ['Funcionaria de la Junta de Comunidades de Castilla-La Mancha','mem','CIFP de Toledo, en el polígono.'],
+   ['Vivió en Collado Mediano toda su vida hasta el traslado','mem'],
+   ['Reside en Las Casas, Ciudad Real','mem'],
+   ['Fecha exacta de la boda','falta'],
+   ['Nombre del colegio y del instituto','falta']]},
+
+mbc_ext:{n:'Manuel Barrios Carrasco', nac:'1976-11-18', g:1, viva:1, r:'pol', cy:['csm'],
+ h:['hija1_csm','hija2_csm'], sello:'Nexo con el otro archivo',
+ f:[['De la familia Barrios – Carrasco, de Ciudad Real','doc',
+    'Tiene su propio archivo, con 320 personas y ocho generaciones documentadas hasta 1782.'],
+   ['Nacido el 18 de noviembre de 1976 en Ciudad Real','doc']]},
+
+ainoa:{n:'Ainoa Sánchez Martín', nac:'1985-03-04', nacLugar:'mad', g:1, viva:1, r:'mat',
+ pa:['jms','cmc'], cy:['borja'], h:['noah','helena_r'], sello:'Ginebra',
+ f:[['Nacida el 4 de marzo de 1985 en Madrid, hospital 12 de Octubre','mem'],
+   ['NACIÓ EL MISMO DÍA DEL AÑO QUE SU HERMANA','hip',
+    'Cuatro años exactos de diferencia, las dos un 4 de marzo. O es casualidad notable, o una de las dos fechas está desplazada.'],
+   ['Diplomada en Fisioterapia','mem','Universidad Pontificia de Comillas, Madrid.'],
+   ['Trabajó en los Alpes franceses, en Hauteville','mem'],
+   ['Después en París','hip','En la nota original se lee «Levalua»: probablemente Levallois-Perret.'],
+   ['Vive en Ginebra desde hace más de once años','mem'],
+   ['Fecha de la boda','falta']]},
+
+borja:{n:'Borja Rodera Iribarren', g:1, viva:1, r:'pol', cy:['ainoa'], h:['noah','helena_r'],
+ f:[['Casado con Ainoa Sánchez Martín','mem'],
+   ['Apellidos poco frecuentes: Rodera e Iribarren','hip','Iribarren es navarro-vasco. Merece una línea propia.'],
+   ['Fecha y lugar de nacimiento','falta'],
+   ['Sus padres','falta'],
+   ['A qué se dedica','falta']]},
+
+javier_fs:{n:'Javier Fernández Sánchez', nac:'~1993', g:1, viva:1, r:'mat',
+ pa:['miro','milagros'], cy:['beatriz_f'], h:['julia_f'],
+ f:[['Unos 33 años','hip','Nacido hacia 1992-1993.'],
+   ['Trabaja en Santander','mem'],
+   ['Casado con Beatriz','mem'],
+   ['Fecha exacta de nacimiento y apellidos de Beatriz','falta']]},
+
+beatriz_f:{n:'Beatriz', g:1, viva:1, r:'pol', cy:['javier_fs'], h:['julia_f'],
+ f:[['Casada con Javier Fernández Sánchez','mem'],['Apellidos y fechas','falta']]},
+
+claudia_sc:{n:'Claudia Sánchez Carranco', nac:'~1996', g:1, viva:1, r:'mat',
+ pa:['pedro_so','mercedes_c'],
+ f:[['Unos 30 años','hip'],
+   ['Trabaja en Repsol','mem'],
+   ['Estudió Derecho y Empresariales','hip','Sin confirmar la doble titulación.'],
+   ['Vive en la calle Alcalá, Madrid','mem'],
+   ['Fecha de nacimiento','falta']]},
+
+miguel_mc:{n:'Miguel Ángel', g:1, viva:1, r:'mat', pa:['antolin','mrosa'], cy:['susana_e'],
+ h:['susana_h'],
+ f:[['Vive en Parla','mem'],['Casado con Susana','mem'],
+   ['Apellidos completos y fechas','falta']]},
+susana_e:{n:'Susana', g:1, viva:1, r:'pol', cy:['miguel_mc'], h:['susana_h'],
+ f:[['Casada con Miguel Ángel','mem'],['Apellidos y fechas','falta']]},
+
+/* ─────────── GENERACIÓN 0 · los pequeños ─────────── */
+
+hija1_csm:{n:'Hija — sin datos', g:0, viva:1, r:'yo', pa:['csm','mbc_ext'], sello:'Reservada',
+ f:[['Persona viva y menor de edad','viva','Sus datos quedan fuera del archivo por decisión de sus padres.']]},
+hija2_csm:{n:'Hija — sin datos', g:0, viva:1, r:'yo', pa:['csm','mbc_ext'], sello:'Reservada',
+ f:[['Persona viva y menor de edad','viva','Sus datos quedan fuera del archivo por decisión de sus padres.']]},
+
+noah:{n:'Noah Rodera Sánchez', nac:'2021-03-15', g:0, viva:1, r:'mat', pa:['borja','ainoa'],
+ f:[['Nacido el 15 de marzo de 2021','mem'],['Lugar de nacimiento','falta','¿Ginebra?']]},
+helena_r:{n:'Helena Rodera Sánchez', nac:'2025-02-10', g:0, viva:1, r:'mat', pa:['borja','ainoa'],
+ f:[['Nacida el 10 de febrero de 2025','mem'],['Lugar de nacimiento','falta','¿Ginebra?']]},
+
+julia_f:{n:'Julia Fernández', nac:'~2024-09', g:0, viva:1, r:'mat', pa:['javier_fs','beatriz_f'],
+ f:[['Cumple un año en septiembre de 2026','mem','Nacida hacia septiembre de 2025.'],
+   ['Fecha exacta y segundo apellido','falta']]},
+
+susana_h:{n:'Susana', nac:'~2001', g:0, viva:1, r:'mat', pa:['miguel_mc','susana_e'],
+ f:[['Unos 25 años','hip'],['Lleva el nombre de su madre','mem'],
+   ['Apellidos y fecha de nacimiento','falta']]},
+
+/* ─────────── GENERACIÓN 2 · padres y tíos ─────────── */
+
+jms:{n:'José Manuel Sánchez Ortiz', nac:'1952-02-05', nacLugar:'pvi', o:'Comercial de material eléctrico',
+ g:2, d:1, viva:1, r:'mat', pa:['aurelio_sg','manuela_or'], cy:['cmc'], h:['csm','ainoa'],
+ f:[['Nacido el 5 de febrero de 1952 en Puente Viesgo, Cantabria','mem'],
+   ['El mayor de seis hermanos','mem'],
+   ['Vivió en Lavapiés y después en Villaverde, Madrid','mem'],
+   ['Trabajó en Galerías Preciados','mem','Los archivos de personal de Galerías Preciados se conservan.'],
+   ['Después en Ramos Sierra, material eléctrico','mem'],
+   ['Y por último en Electrostock','mem'],
+   ['Compró piso en Collado Mediano, donde vive','mem'],
+   ['Cuándo bajó de Cantabria a Madrid, y por qué','falta'],
+   ['Fecha de su boda','falta']]},
+
+cmc:{n:'Concepción Martín del Castillo', nac:'1953-03-12', nacLugar:'mad', g:2, d:1, viva:1, r:'mat',
+ pa:['juan_mg','juana_cp'], cy:['jms'], h:['csm','ainoa'],
+ f:[['Nacida el 12 de marzo de 1953 en Madrid','mem'],
+   ['Vivió en Villaverde Alto','mem'],
+   ['Después en Collado Mediano con José Manuel','mem'],
+   ['Su nieta lleva su nombre','mem'],
+   ['A qué se dedicó','falta']]},
+
+aurelio_nino:{n:'Aurelio Sánchez Ortiz', g:2, r:'mat', pa:['aurelio_sg','manuela_or'],
+ sello:'Murió de niño',
+ f:[['Murió siendo pequeño','mem'],
+   ['Su hermano siguiente recibió el mismo nombre','mem',
+    'Costumbre habitual: repetir el nombre del hijo perdido. Marca la fecha de la muerte entre los dos nacimientos.'],
+   ['Fechas de nacimiento y defunción','falta','Estarán en el Registro Civil de Puente Viesgo.']]},
+
+aurelio_so:{n:'Aurelio Sánchez Ortiz', fall:'~2018', o:'Lechería', g:2, r:'mat',
+ pa:['aurelio_sg','manuela_or'],
+ f:[['Lleva el nombre de un hermano mayor que murió de niño','mem'],
+   ['Trabajó siempre en la lechería del barrio de Goya, zona de Ibiza','mem'],
+   ['La lechería era de gente de Puente Viesgo','hip',
+    'En la nota original aparece «Puenteviesgo» como nombre del negocio o de la familia dueña. Las lecherías de Madrid las llevaban mayoritariamente cántabros y asturianos.'],
+   ['No se casó ni tuvo hijos','mem'],
+   ['Falleció hacia 2018','mem'],
+   ['Fechas exactas','falta']]},
+
+teresa_so:{n:'Teresa Sánchez Ortiz', o:'Administrativa', g:2, viva:1, r:'mat',
+ pa:['aurelio_sg','manuela_or'],
+ f:[['Trabajó toda la vida de administrativa y caja en Ramos Sierra','mem','La misma empresa que su hermano José Manuel.'],
+   ['Jubilada','mem'],['No se casó','mem'],
+   ['Tiene piso en el barrio de Goya, Madrid','mem'],
+   ['Reside en Cuevas de Almanzora, Almería','mem'],
+   ['VIVE CON SU MADRE Y CON UN TÍO','hip',
+    'Si es cierto y se refiere a Manuela Teresa Ortiz Rueda, ella vive y es la persona mayor del árbol: la fuente oral más valiosa de esta rama. HAY QUE CONFIRMARLO CUANTO ANTES.'],
+   ['Fecha de nacimiento','falta']]},
+
+milagros:{n:'Milagros Sánchez Ortiz', g:2, viva:1, r:'mat', pa:['aurelio_sg','manuela_or'],
+ cy:['miro'], h:['javier_fs'],
+ f:[['Vivió en Astillero, Cantabria','mem'],['Ahora vive en Bilbao','mem'],
+   ['Llevó el bar de los Salesianos de Bilbao unos años','mem'],
+   ['Jubilada','mem'],['Fecha de nacimiento','falta']]},
+
+miro:{n:'Miro Fernández', g:2, viva:1, r:'pol', cy:['milagros'], h:['javier_fs'],
+ f:[['Trabajó en Astillero y en Muskiz, País Vasco','mem','Zona de astilleros y refinería.'],
+   ['Jubilado','mem'],
+   ['«Miro» puede ser diminutivo','hip','¿Miguel? ¿Ramiro? ¿Casimiro?'],
+   ['Nombre completo, segundo apellido y fechas','falta']]},
+
+pedro_so:{n:'Pedro «Pedrito» Sánchez Ortiz', o:'Restaurador y dorador', g:2, viva:1, r:'mat',
+ pa:['aurelio_sg','manuela_or'], cy:['mercedes_c'], h:['claudia_sc'], sello:'El oficio del oro',
+ f:[['Trabajó toda la vida en una empresa de carpetas','mem'],
+   ['Restaurador de arte y de marcos de cuadro','mem'],
+   ['Trabaja especialmente bien el dorado','mem',
+    'El dorado al agua es un oficio de gremio, con aprendizaje largo. Merece una conversación grabada aparte.'],
+   ['Vive en Madrid','mem'],
+   ['Nombre de la empresa de carpetas y del taller','falta'],
+   ['Fecha de nacimiento','falta']]},
+
+mercedes_c:{n:'Mercedes Carranco', o:'Maestra', g:2, viva:1, r:'pol', cy:['pedro_so'], h:['claudia_sc'],
+ f:[['Madrileña','mem'],
+   ['Profesora en el colegio La Casita del Niño Jesús, Madrid','mem'],
+   ['Segundo apellido y fechas','falta']]},
+
+mrosa:{n:'María Rosa Martín del Castillo', g:2, r:'mat', pa:['juan_mg','juana_cp'],
+ cy:['antolin'], h:['oscar_mc','miguel_mc'],
+ f:[['Hermana de Concepción Martín del Castillo','mem'],
+   ['Fechas','falta'],['Si vive o ha fallecido','falta']]},
+
+antolin:{n:'Antolín', g:2, r:'pol', cy:['mrosa'], h:['oscar_mc','miguel_mc'],
+ f:[['De Fuentelfresno','hip','El topónimo aparece en la nota original sin más precisión. Hay Fuentelfresno en Soria.'],
+   ['Apellidos y fechas','falta']]},
+
+oscar_mc:{n:'Óscar', nac:'1974', fall:'~1992', g:2, r:'mat', pa:['antolin','mrosa'],
+ sello:'Murió a los 18',
+ f:[['Nacido en 1974','mem'],
+   ['Falleció a los dieciocho años de una enfermedad','mem','Hacia 1992.'],
+   ['Apellidos completos y fechas exactas','falta']]},
+
+/* ─────────── GENERACIÓN 3 · los abuelos ─────────── */
+
+aurelio_sg:{n:'Aurelio Sánchez Gutiérrez', nacLugar:'pvi', g:3, d:1, r:'mat',
+ pa:['h_asg_p','h_asg_m'], cy:['manuela_or'],
+ h:['jms','aurelio_nino','aurelio_so','teresa_so','milagros','pedro_so'],
+ f:[['De Puente Viesgo, Cantabria','mem'],
+   ['Padre de seis hijos','mem'],
+   ['Fechas de nacimiento y defunción','falta'],
+   ['A qué se dedicaba','falta'],
+   ['Sus padres: un Sánchez y una Gutiérrez','hip','Deducido del sistema de apellidos.']]},
+
+manuela_or:{n:'Manuela Teresa Ortiz Rueda', g:3, d:1, r:'mat',
+ pa:['h_mor_p','h_mor_m'], cy:['aurelio_sg'],
+ h:['jms','aurelio_nino','aurelio_so','teresa_so','milagros','pedro_so'],
+ sello:'¿Vive?',
+ f:[['¿De San Roque de Riomiera, Cantabria?','hip','En la nota original aparece con interrogante.'],
+   ['PUEDE ESTAR VIVA','hip',
+    'Su hija Teresa reside en Cuevas de Almanzora «con su madre y un tío». Si es ella, es la persona mayor de este árbol y la única que conoció a la generación anterior. Confirmarlo es la primera tarea.'],
+   ['Madre de seis hijos','mem'],
+   ['Fechas','falta'],
+   ['Sus padres: un Ortiz y una Rueda','hip']]},
+
+juan_mg:{n:'Juan Martín Gómez', o:'¿Fábrica?', g:3, d:1, r:'mat',
+ pa:['h_jmg_p','h_jmg_m'], cy:['juana_cp'], h:['cmc','mrosa'],
+ f:[['Trabajaba en una fábrica','hip','En la nota original aparece con interrogante.'],
+   ['Padre de Concepción y María Rosa','mem'],
+   ['Fechas y lugar de nacimiento','falta'],
+   ['Sus padres: un Martín y una Gómez','hip']]},
+
+juana_cp:{n:'Juana del Castillo Pedraza', nacLugar:'lag', g:3, d:1, r:'mat',
+ pa:['h_jcp_p','h_jcp_m'], cy:['juan_mg'], h:['cmc','mrosa'],
+ f:[['De La Guardia','mem','Probablemente La Guardia, Toledo, por la cercanía a Madrid. Hay otras dos en España.'],
+   ['Madre de Concepción y María Rosa','mem'],
+   ['Fechas','falta'],
+   ['Sus padres: un del Castillo y una Pedraza','hip']]}
+
+};
+
+/* ─────────── casillas vacías: generación 4 ─────────── */
+const HUECOS = [
+ ['h_asg_p','Padre de Aurelio Sánchez Gutiérrez','Sánchez',4,'mat','aurelio_sg'],
+ ['h_asg_m','Madre de Aurelio Sánchez Gutiérrez','Gutiérrez',4,'mat','aurelio_sg'],
+ ['h_mor_p','Padre de Manuela Teresa Ortiz Rueda','Ortiz',4,'mat','manuela_or'],
+ ['h_mor_m','Madre de Manuela Teresa Ortiz Rueda','Rueda',4,'mat','manuela_or'],
+ ['h_jmg_p','Padre de Juan Martín Gómez','Martín',4,'mat','juan_mg'],
+ ['h_jmg_m','Madre de Juan Martín Gómez','Gómez',4,'mat','juan_mg'],
+ ['h_jcp_p','Padre de Juana del Castillo Pedraza','del Castillo',4,'mat','juana_cp'],
+ ['h_jcp_m','Madre de Juana del Castillo Pedraza','Pedraza',4,'mat','juana_cp']
+];
+
+/* ─────────── lugares ─────────── */
+const L = {
+ pvi:{n:'Puente Viesgo', p:'Cantabria', d:'Valle del Pas. De aquí sale la rama Sánchez. Pueblo de balneario y de cuevas prehistóricas, en el valle del Pas.'},
+ srr:{n:'San Roque de Riomiera', p:'Cantabria', d:'Valle del Miera, pueblo pequeño de montaña. Posible origen de Manuela Teresa Ortiz Rueda, sin confirmar.'},
+ mad:{n:'Madrid', p:'Madrid', d:'Lavapiés y después Villaverde para los Sánchez; Villaverde Alto para los Martín del Castillo.'},
+ col:{n:'Collado Mediano', p:'Madrid', d:'Sierra de Guadarrama. Aquí compró piso José Manuel y aquí se criaron Concepción y Ainoa.'},
+ lag:{n:'La Guardia', p:'Toledo', d:'De aquí era Juana del Castillo Pedraza. Sin confirmar cuál de las tres Guardias de España.'},
+ par:{n:'Parla', p:'Madrid', d:'Donde vive la rama de María Rosa Martín del Castillo.'},
+ ast:{n:'Astillero', p:'Cantabria', d:'Donde vivieron Milagros y Miro antes de Bilbao.'},
+ bil:{n:'Bilbao', p:'Bizkaia', d:'Milagros llevó el bar de los Salesianos.'},
+ cue:{n:'Cuevas de Almanzora', p:'Almería', d:'Donde reside Teresa Sánchez Ortiz, según la memoria familiar con su madre y un tío.'},
+ gin:{n:'Ginebra', p:'Suiza', d:'Ainoa vive allí desde hace más de once años.'},
+ ccr:{n:'Ciudad Real', p:'Ciudad Real', d:'Las Casas. Donde vive Concepción desde que se trasladó.'}
+};
+
+const LUG_PERS = {
+ pvi:['aurelio_sg','jms'], mad:['cmc','csm','ainoa','pedro_so','claudia_sc'],
+ col:['jms','cmc','csm','ainoa'], lag:['juana_cp'], par:['miguel_mc'],
+ ast:['milagros','miro'], bil:['milagros','miro'], cue:['teresa_so','manuela_or'],
+ gin:['ainoa','borja','noah','helena_r'], ccr:['csm','mbc_ext']
+};
+
+/* ─────────── cronología ─────────── */
+const T = [
+ {f:'1952', o:1952, t:'Nace José Manuel Sánchez Ortiz en Puente Viesgo', l:'pvi', c:'mem', p:'jms', hito:1,
+  d:'El mayor de seis hermanos de una familia del valle del Pas.'},
+ {f:'1953', o:1953, t:'Nace Concepción Martín del Castillo en Madrid', l:'mad', c:'mem', p:'cmc'},
+ {f:'1974', o:1974, t:'Nace Óscar', c:'mem', p:'oscar_mc'},
+ {f:'1981', o:1981.18, t:'Nace Concepción Sánchez Martín', l:'mad', c:'mem', p:'csm', hito:1,
+  d:'En el hospital 12 de Octubre de Madrid, un 4 de marzo.'},
+ {f:'1985', o:1985.18, t:'Nace Ainoa Sánchez Martín', l:'mad', c:'mem', p:'ainoa',
+  d:'También un 4 de marzo, en el mismo hospital. Cuatro años exactos después.'},
+ {f:'≈1992', o:1992, t:'Muere Óscar a los dieciocho años', c:'mem', p:'oscar_mc'},
+ {f:'≈2015', o:2015, t:'Ainoa se instala en Ginebra', l:'gin', c:'mem', p:'ainoa'},
+ {f:'≈2018', o:2018, t:'Muere Aurelio Sánchez Ortiz', c:'mem', p:'aurelio_so'},
+ {f:'2021', o:2021.2, t:'Nace Noah', c:'mem', p:'noah'},
+ {f:'2025', o:2025.1, t:'Nace Helena', c:'mem', p:'helena_r'}
+];
+
+const EV_MAN = [];
+
+/* ═════════════════════════════════════════════════════
+   MI ÁRBOL · motor
+   ═════════════════════════════════════════════════════ */
+
+const $ = s => document.querySelector(s);
+const NS = 'http://www.w3.org/2000/svg';
+const el = (t, a = {}) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); return e; };
+const FORMULARIO = 'https://corgan7.github.io/arbol-genealogico/';
+
+/* ── paquete de precarga: todo lo que sabemos, en un solo parámetro ── */
+function paquete(p, PP, origen, claveRama){
+  const lim = (s,n) => s ? String(s).slice(0,n) : '';
+  const nom = x => PP[x] && !PP[x].hueco ? PP[x].n : '';
+  const listaHijos = (PP[p.id] && PP[p.id].h ? PP[p.id].h : (p.h||[])).map(nom).filter(Boolean);
+  const hermanos = [];
+  (p.pa||[]).forEach(a => (PP[a] && PP[a].h ? PP[a].h : []).forEach(x => {
+    if (x !== p.id && nom(x)) hermanos.push(nom(x));
+  }));
+  const d = {
+    id: p.id, o: origen, k: claveRama,
+    n:  p.hueco ? '' : p.n.replace(/\s*«[^»]*»\s*/g,' ').replace(/^\[nombre\]\s*/,'').replace(/\s+/g,' ').trim(),
+    ap: (p.n.match(/«([^»]*)»/) || [])[1] || '',
+    v:  p.viva ? '1' : '0',
+    nf: lim(p.nac,40), df: lim(p.fall,40),
+    nl: p.nacLugar && L[p.nacLugar] ? L[p.nacLugar].n : '',
+    of: lim(p.o,90),
+    pa: (p.pa||[]).map(nom).filter(Boolean)[0] || '',
+    ma: (p.pa||[]).map(nom).filter(Boolean)[1] || '',
+    co: (p.cy||[]).map(nom).filter(Boolean).join(', ').slice(0,180),
+    he: [...new Set(hermanos)].join('\n').slice(0,300),
+    hi: listaHijos.join('\n').slice(0,300)
+  };
+  Object.keys(d).forEach(k => { if (!d[k]) delete d[k]; });
+  const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(d))))
+    .replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  return FORMULARIO + '?d=' + b64;
+}
+
+
+/* ── grafo ──────────────────────────────────────────── */
+const G = {};
+for (const [id, p] of Object.entries(P))
+  G[id] = { ...p, id, pa: p.pa ? [...p.pa] : [], h: p.h ? [...p.h] : [], cy: p.cy ? [...p.cy] : [], f: p.f || [] };
+HUECOS.forEach(([id, n, ap, g, r, hijo]) =>
+  G[id] = { id, n, g, r, d: 1, hueco: 1, ap, h: [hijo], pa: [], cy: [], f: [] });
+for (const p of Object.values(G)) p.h.forEach(h => { if (G[h] && !G[h].pa.includes(p.id)) G[h].pa.push(p.id); });
+for (const p of Object.values(G)) p.pa.forEach(a => { if (G[a] && !G[a].h.includes(p.id)) G[a].h.push(p.id); });
+for (const p of Object.values(G)) p.cy.forEach(c => { if (G[c] && !G[c].cy.includes(p.id)) G[c].cy.push(p.id); });
+const IDS = Object.keys(G);
+IDS.forEach(i => { if (G[i].g == null) G[i].g = 1; });
+
+/* ── sexo y parentesco ──────────────────────────────── */
+const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+const NM = new Set(('noah borja miro antolin oscar aurelio javier miguel pedro jose juan manuel francisco enrique rafael jose pedro gonzalo andres amador herminio victoriano fructuoso sergio domingo siro justo genaro sixto carlos javier antonio alfonso fermin severino luciano juan miguel aaron teofilo ricardo oscar alejandro hector fernando rodrigo gabriel alberto ceferino carmelo jaime felipe daniel luis diego arturo heladio teodoro pablo marcos bruno dario alvaro abel gustavo guillermo german roberto paco padre hijo pepe juanito faustino segundo vicente angel casimiro ramon joselin juanjo santiago eduardo mellizo cuarto roman melchor eusebio aquilino agustin julian jesus jorge dionisio david benito victor tiburcio wenceslao gavino bartolome telesforo emiliano marceliano moises celedonio adriano eulogio sofio isidro lorenzo clemente quintin ignacio conrado felix bernardino tomas nicolas anton simon jacinto antolin damaso hilario leopoldo braulio nemesio').split(' '));
+const NF = new Set(('sagrario amparo maria dolores rosario pilar carmen consuelo socorro milagros concepcion beatriz mercedes soledad asuncion encarnacion inmaculada rosario nieves belen ainoa noelia raquel isabel nuria elisabet ester ines luz paz esther').split(' '));
+function esFem(id) {
+  const p = G[id]; if (!p) return false;
+  const t = norm(p.n).replace(/[«»\[\]"]/g, '').split(/[ ,]+/)[0];
+  if (NM.has(t)) return false;
+  if (NF.has(t)) return true;
+  return /a$/.test(t);
+}
+const FEM = { padre:'madre', hijo:'hija', hermano:'hermana', tío:'tía', sobrino:'sobrina', primo:'prima',
+  abuelo:'abuela', bisabuelo:'bisabuela', tatarabuelo:'tatarabuela', tatatarabuelo:'tatatarabuela',
+  nieto:'nieta', bisnieto:'bisnieta', tataranieto:'tataranieta', primero:'primera', segundo:'segunda',
+  tercero:'tercera', cuarto:'cuarta', quinto:'quinta', sexto:'sexta', 'séptimo':'séptima', octavo:'octava' };
+const fem = s => s.split(' ').map(w => FEM[w] || w).join(' ');
+const ORD = ['', 'primero', 'segundo', 'tercero', 'cuarto', 'quinto', 'sexto', 'séptimo', 'octavo'];
+const ABU = ['', 'padre', 'abuelo', 'bisabuelo', 'tatarabuelo', 'tatatarabuelo', 'sexto abuelo', 'séptimo abuelo', 'octavo abuelo'];
+const DES = ['', 'hijo', 'nieto', 'bisnieto', 'tataranieto'];
+
+const cacheAsc = new Map();
+function asc(id) {
+  if (cacheAsc.has(id)) return cacheAsc.get(id);
+  const m = new Map([[id, 0]]); let capa = [id], d = 0;
+  while (capa.length && d < 14) {
+    const sig = [];
+    capa.forEach(x => (G[x]?.pa || []).forEach(p => { if (G[p] && !m.has(p)) { m.set(p, d + 1); sig.push(p); } }));
+    capa = sig; d++;
+  }
+  cacheAsc.set(id, m); return m;
+}
+function comun(a, b) {
+  const A = asc(a), B = asc(b); let mej = null;
+  for (const [x, dA] of A) if (B.has(x)) {
+    const dB = B.get(x), t = dA + dB;
+    if (!mej || t < mej.t || (t === mej.t && Math.abs(dA - dB) < Math.abs(mej.dA - mej.dB))) mej = { x, dA, dB, t };
+  }
+  return mej;
+}
+function parentesco(a, b) {
+  if (a === b) return '';
+  if (!G[a] || !G[b]) return '';
+  const f = t => esFem(b) ? fem(t) : t;
+  if (G[a].cy.includes(b)) return f('cónyuge');
+  const m = comun(a, b);
+  if (m) {
+    const { dA, dB } = m;
+    if (dA === 0) return f(DES[dB] || `descendiente en ${dB} grados`);
+    if (dB === 0) return f(ABU[dA] || `ascendiente en ${dA} grados`);
+    if (dA === 1 && dB === 1) return f('hermano');
+    if (dA === 1) return f(dB === 2 ? 'sobrino' : 'sobrino ' + (ABU[dB - 1] || ''));
+    if (dB === 1) return f(dA === 2 ? 'tío' : 'tío ' + (ABU[dA - 1] || ''));
+    const gr = Math.min(dA, dB) - 1, dif = Math.abs(dA - dB);
+    if (dif === 0) return f(`primo ${gr === 1 ? 'hermano' : (ORD[gr] || gr + '.º')}`);
+    return f(`${dA < dB ? 'sobrino' : 'tío'} ${ORD[gr + 1] || (gr + 1) + '.º'}`);
+  }
+  for (const c of G[b].cy) { const p = comun(a, c); if (p) { const r = parentesco(a, c); if (r) return `${f('cónyuge')} de ${r}`; } }
+  for (const c of G[a].cy) if (comun(c, b)) return f('familia política');
+  return 'de la casa';
+}
+
+/* ── conjuntos ──────────────────────────────────────── */
+function descendencia(id) {
+  const s = new Set(); const p = [id];
+  while (p.length) { const x = p.pop(); (G[x]?.h || []).forEach(h => { if (G[h] && !s.has(h)) { s.add(h); p.push(h); } }); }
+  return s;
+}
+function miLinea(id) {
+  const S = new Set([id]);
+  asc(id).forEach((_, a) => S.add(a));
+  descendencia(id).forEach(d => S.add(d));
+  (G[id].pa || []).forEach(a => (G[a].h || []).forEach(h => { if (G[h]) S.add(h); }));   // hermanos
+  [...S].forEach(x => (G[x].cy || []).forEach(c => { if (G[c]) S.add(c); }));
+  return S;
+}
+function miFamilia(id) {
+  const S = miLinea(id); const A = asc(id);
+  A.forEach((d, a) => {
+    if (d > 4) return;
+    (G[a].h || []).forEach(h => {
+      if (!G[h]) return; S.add(h);
+      if (d <= 3) (G[h].h || []).forEach(n => { if (G[n]) S.add(n); });
+    });
+  });
+  [...S].forEach(x => (G[x].cy || []).forEach(c => { if (G[c]) S.add(c); }));
+  return S;
+}
+
+/* ── trazado ────────────────────────────────────────── */
+const movil = innerWidth < 720;
+const ANCHO = movil ? 132 : 152, ALTO = movil ? 44 : 48;
+const PASO = ANCHO + 16, FILA = movil ? 132 : 152;
+let pos = {}, bandas = [];
+
+function trazar(conj) {
+  const lista = [...conj].filter(i => G[i]);
+  const porGen = {}; lista.forEach(i => (porGen[G[i].g] = porGen[G[i].g] || []).push(i));
+  const gens = Object.keys(porGen).map(Number).sort((a, b) => b - a);
+  const orden = {}; let c = 0; const visto = new Set();
+  const bajar = x => {
+    if (visto.has(x) || !conj.has(x)) return;
+    visto.add(x); orden[x] = c++;
+    (G[x].cy || []).forEach(y => { if (conj.has(y) && !visto.has(y)) { visto.add(y); orden[y] = c++; } });
+    const hh = new Set();
+    (G[x].h || []).forEach(h => hh.add(h));
+    (G[x].cy || []).forEach(y => (G[y]?.h || []).forEach(h => hh.add(h)));
+    [...hh].filter(h => conj.has(h)).sort((a, b) => (G[a].nac || 'zz').localeCompare(G[b].nac || 'zz')).forEach(bajar);
+  };
+  gens.forEach(g => porGen[g].filter(i => !G[i].pa.some(p => conj.has(p))).forEach(bajar));
+  lista.forEach(i => { if (orden[i] === undefined) orden[i] = c++; });
+  const X = {};
+  gens.forEach(g => { porGen[g].sort((a, b) => orden[a] - orden[b]); porGen[g].forEach((id, k) => X[id] = k * PASO); });
+  const med = a => a.reduce((x, y) => x + y, 0) / a.length;
+  for (let it = 0; it < 300; it++) {
+    const fz = it < 220 ? .55 : .28;
+    lista.forEach(id => {
+      const p = G[id], obj = [];
+      const hh = p.h.filter(h => conj.has(h)); if (hh.length) obj.push(med(hh.map(h => X[h])));
+      const pp = p.pa.filter(a => conj.has(a)); if (pp.length) obj.push(med(pp.map(a => X[a])));
+      const cc = p.cy.filter(y => conj.has(y) && G[y].g === p.g);
+      if (cc.length) obj.push(X[cc[0]] + (orden[id] < orden[cc[0]] ? -PASO : PASO));
+      if (obj.length) X[id] += (med(obj) - X[id]) * fz;
+    });
+    gens.forEach(g => {
+      const fila = porGen[g].slice().sort((a, b) => X[a] - X[b]);
+      for (let k = 1; k < fila.length; k++) { const m = X[fila[k - 1]] + PASO; if (X[fila[k]] < m) X[fila[k]] = m; }
+      if (fila.length > 1) { const ce = (X[fila[0]] + X[fila[fila.length - 1]]) / 2; fila.forEach(i => X[i] -= ce * .04); }
+    });
+  }
+  const minX = Math.min(...lista.map(i => X[i]));
+  pos = {}; const fy = {}; let y = 0;
+  gens.forEach(g => { fy[g] = y; y += FILA; });
+  lista.forEach(i => pos[i] = { x: X[i] - minX, y: fy[G[i].g] });
+  bandas = gens.map(g => ({ g, y: fy[g], n: porGen[g].length }));
+  return { ancho: Math.max(...lista.map(i => pos[i].x)) + ANCHO, alto: y };
+}
+
+/* ── etiquetas de generación ────────────────────────── */
+const E_ASC = ['Su generación', 'Padres', 'Abuelos', 'Bisabuelos', 'Tatarabuelos', 'Tatatarabuelos', 'Sextos abuelos', 'Séptimos abuelos'];
+const E_DES = ['', 'Hijos', 'Nietos', 'Bisnietos', 'Tataranietos'];
+const etiquetaGen = (g, ref) => {
+  const d = g - ref;
+  if (d === 0) return 'Su generación · hermanos y primos';
+  return d > 0 ? (E_ASC[d] || `${d}.ª generación anterior`) : (E_DES[-d] || `${-d}.ª posterior`);
+};
+
+/* ── estado ─────────────────────────────────────────── */
+let yo = 'csm';           // identidad del visitante
+let raiz = 'csm';         // persona en cuyo árbol estamos
+let selId = null;
+let amplio = false;       // con primos
+let visibles = new Set();
+let camino = null;
+const historia = [];
+
+const svg = $('#svg'), mundo = $('#mundo');
+const cB = $('#c-bandas'), cE = $('#c-enlaces'), cN = $('#c-nodos'), capaEtiq = $('#capa-etiq');
+const COL = { pat: 'var(--pat)', mat: 'var(--mat)', pol: 'var(--pol)', yo: 'var(--yo)' };
+
+/* ── utilidades de texto ────────────────────────────── */
+const anio = s => s ? String(s).slice(0, 4).replace(/[^0-9~≈]/g, '') : '';
+function anios(p) {
+  const a = anio(p.nac), b = anio(p.fall);
+  if (a && b) return `${a} – ${b}`;
+  if (a) return `n. ${a}`;
+  if (b) return `† ${b}`;
+  return '';
+}
+const corta = (t, n) => t.length > n ? t.slice(0, n - 1) + '…' : t;
+function nombreCorto(p) {
+  return corta(p.n.replace(/\s*«[^»]*»\s*/g, ' ').replace(/\s+/g, ' ').replace(/^\[nombre\]\s*/, '¿? ').trim(), 25);
+}
+/* cuánto sabemos de alguien, de 0 a 1 */
+function riqueza(p) {
+  if (p.hueco) return 0;
+  let n = 0;
+  if (p.nac) n += 2; if (p.fall) n += 1; if (p.o) n += 1;
+  n += (p.f || []).filter(f => f[1] === 'doc').length * 1.5;
+  n += (p.f || []).filter(f => f[1] === 'mem').length * .6;
+  return Math.min(1, n / 8);
+}
+
+/* ── pintar ─────────────────────────────────────────── */
+function pintar(conj) {
+  const inf = trazar(conj);
+  cB.textContent = ''; cE.textContent = ''; cN.textContent = '';
+  bandas.forEach(b => {
+    const g = el('g');
+    g.appendChild(el('rect', { x: -4000, y: b.y - 30, width: inf.ancho + 8000, height: FILA, class: 'b-fondo' }));
+    g.appendChild(el('line', { x1: -4000, y1: b.y - 30, x2: inf.ancho + 4000, y2: b.y - 30, class: 'b-linea' }));
+    cB.appendChild(g);
+  });
+  const hechos = new Set();
+  conj.forEach(id => {
+    const p = G[id], a = pos[id]; if (!a) return;
+    p.pa.forEach(pid => {
+      if (!conj.has(pid) || !pos[pid]) return;
+      const b = pos[pid], x1 = a.x + ANCHO / 2, y1 = a.y, x2 = b.x + ANCHO / 2, y2 = b.y + ALTO, my = (y1 + y2) / 2;
+      cE.appendChild(el('path', { d: `M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}`,
+        class: 'enl' + (G[id].d && G[pid].d ? ' dir' : ''), 'data-a': id, 'data-b': pid }));
+    });
+    p.cy.forEach(cid => {
+      if (!conj.has(cid) || !pos[cid]) return;
+      const k = [id, cid].sort().join('|'); if (hechos.has(k)) return; hechos.add(k);
+      const b = pos[cid];
+      cE.appendChild(el('line', { x1: a.x + ANCHO, y1: a.y + ALTO / 2, x2: b.x, y2: b.y + ALTO / 2,
+        class: 'enl par', 'data-a': id, 'data-b': cid }));
+    });
+  });
+  [...conj].forEach(id => {
+    const p = G[id], c = pos[id]; if (!c) return;
+    const rel = id === yo ? 'eres tú' : parentesco(yo, id);
+    const g = el('g', { class: 'nodo' + (p.hueco ? ' casilla' : '') + (p.d ? ' dir' : '') + (id === raiz ? ' raiz' : ''),
+      transform: `translate(${c.x},${c.y})`, 'data-id': id, tabindex: '0', role: 'button',
+      'aria-label': `${p.n}. ${anios(p) || 'sin fechas'}. ${rel}` });
+    g.appendChild(el('rect', { class: 'caja', x: 0, y: 0, width: ANCHO, height: ALTO, rx: 3 }));
+    g.appendChild(el('rect', { class: 'rama', x: 0, y: 0, width: 3.5, height: ALTO, fill: COL[p.r] || 'var(--falta)' }));
+    const t1 = el('text', { class: 'nom', x: 11, y: 19 }); t1.textContent = nombreCorto(p); g.appendChild(t1);
+    const t2 = el('text', { class: 'dat', x: 11, y: 35 });
+    t2.textContent = corta(anios(p) || p.o || '', 28); g.appendChild(t2);
+    /* barra de cuánto sabemos */
+    const r = riqueza(p);
+    g.appendChild(el('rect', { x: 11, y: ALTO - 7, width: ANCHO - 22, height: 2, fill: 'var(--linea)' }));
+    if (r > 0) g.appendChild(el('rect', { x: 11, y: ALTO - 7, width: (ANCHO - 22) * r, height: 2,
+      fill: r > .55 ? 'var(--doc)' : (r > .25 ? 'var(--oro)' : 'var(--hip)') }));
+    if (r < .18) { const w = el('text', { class: 'aviso-falta', x: ANCHO - 9, y: 16, 'text-anchor': 'end' });
+      w.textContent = '?'; g.appendChild(w); }
+    g.addEventListener('click', ev => { ev.stopPropagation(); abrir(id); });
+    g.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); abrir(id); } });
+    cN.appendChild(g);
+  });
+  marcar();
+  vista();
+  return inf;
+}
+function marcar() {
+  cN.querySelectorAll('.nodo').forEach(n => {
+    n.classList.toggle('sel', n.dataset.id === selId && n.dataset.id !== raiz);
+    n.classList.toggle('camino', !!camino && camino.includes(n.dataset.id));
+    n.classList.toggle('tenue', !!camino && !camino.includes(n.dataset.id));
+  });
+  cE.querySelectorAll('.enl').forEach(l => {
+    const dentro = camino && camino.includes(l.dataset.a) && camino.includes(l.dataset.b)
+      && Math.abs(camino.indexOf(l.dataset.a) - camino.indexOf(l.dataset.b)) === 1;
+    l.classList.toggle('camino', !!dentro);
+    l.style.opacity = camino ? (dentro ? 1 : .08) : '';
+  });
+}
+
+/* ── zoom y desplazamiento ──────────────────────────── */
+let vx = 0, vy = 0, esc = 1;
+const E_MIN = .07, E_MAX = 2.8;
+function vista() {
+  mundo.setAttribute('transform', `translate(${vx},${vy}) scale(${esc})`);
+  const ref = G[raiz] ? G[raiz].g : 1, hijos = capaEtiq.children;
+  bandas.forEach((b, i) => {
+    let e = hijos[i];
+    if (!e) { e = document.createElement('div'); e.className = 'etiq'; e.innerHTML = '<span class="t"></span>'; capaEtiq.appendChild(e); }
+    const y = vy + (b.y + ALTO / 2) * esc;
+    e.style.top = y + 'px';
+    e.style.display = (y > 52 && y < innerHeight - 58) ? 'flex' : 'none';
+    e.querySelector('.t').textContent = etiquetaGen(b.g, ref);
+    e.classList.toggle('eco', b.g === ref);
+  });
+  while (hijos.length > bandas.length) capaEtiq.removeChild(hijos[hijos.length - 1]);
+}
+let anim = null;
+function irA(e2, x2, y2, an = true) {
+  if (anim) cancelAnimationFrame(anim);
+  if (!an || matchMedia('(prefers-reduced-motion: reduce)').matches) { esc = e2; vx = x2; vy = y2; vista(); return; }
+  const e0 = esc, x0 = vx, y0 = vy, t0 = performance.now();
+  const paso = t => {
+    const k = Math.min(1, (t - t0) / 480), s = 1 - Math.pow(1 - k, 3);
+    esc = e0 + (e2 - e0) * s; vx = x0 + (x2 - x0) * s; vy = y0 + (y2 - y0) * s; vista();
+    anim = k < 1 ? requestAnimationFrame(paso) : null;
+  };
+  anim = requestAnimationFrame(paso);
+}
+function encajar(conj, an = true) {
+  const l = [...(conj || visibles)].filter(i => pos[i]); if (!l.length) return;
+  const x0 = Math.min(...l.map(i => pos[i].x)) - 20, x1 = Math.max(...l.map(i => pos[i].x)) + ANCHO + 20;
+  const y0 = Math.min(...l.map(i => pos[i].y)) - 40, y1 = Math.max(...l.map(i => pos[i].y)) + ALTO + 20;
+  const sup = 70, inf = 68, lat = innerWidth > 800 ? 20 : 14;
+  const e = Math.min((innerWidth - lat * 2) / (x1 - x0), (innerHeight - sup - inf) / (y1 - y0));
+  const e2 = Math.max(E_MIN, Math.min(1.1, e));
+  irA(e2, (innerWidth - (x1 - x0) * e2) / 2 - x0 * e2, sup + (innerHeight - sup - inf - (y1 - y0) * e2) / 2 - y0 * e2, an);
+}
+function centrar(id, e0) {
+  const c = pos[id]; if (!c) return;
+  const e = e0 || Math.max(esc, .68);
+  const ab = $('#ficha').classList.contains('on');
+  const w = (innerWidth > 800 && ab) ? innerWidth - 400 : innerWidth;
+  const h = (innerWidth <= 800 && ab) ? innerHeight * .42 : innerHeight;
+  irA(e, w / 2 - (c.x + ANCHO / 2) * e, h / 2 - (c.y + ALTO / 2) * e, true);
+}
+
+const lz = $('#lienzo'); let pts = new Map(), d0 = 0, e0p = 1, cen = null, arr = false, movido = false;
+lz.addEventListener('pointerdown', ev => {
+  if (ev.target.closest('.nodo')) return;
+  lz.setPointerCapture(ev.pointerId); pts.set(ev.pointerId, { x: ev.clientX, y: ev.clientY }); movido = false;
+  if (pts.size === 1) { arr = true; lz.classList.add('arr'); }
+  if (pts.size === 2) { const [a, b] = [...pts.values()];
+    d0 = Math.hypot(a.x - b.x, a.y - b.y); e0p = esc; cen = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }; arr = false; }
+});
+lz.addEventListener('pointermove', ev => {
+  if (!pts.has(ev.pointerId)) return;
+  const ant = pts.get(ev.pointerId); pts.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+  if (pts.size === 1 && arr) {
+    const dx = ev.clientX - ant.x, dy = ev.clientY - ant.y;
+    if (Math.abs(dx) + Math.abs(dy) > 2) movido = true;
+    vx += dx; vy += dy; vista();
+  } else if (pts.size === 2 && d0 > 0) {
+    const [a, b] = [...pts.values()], d = Math.hypot(a.x - b.x, a.y - b.y);
+    const nv = Math.max(E_MIN, Math.min(E_MAX, e0p * (d / d0))), c = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+    vx = c.x - (cen.x - vx) * (nv / esc); vy = c.y - (cen.y - vy) * (nv / esc);
+    cen = c; esc = nv; vista();
+  }
+});
+const soltar = ev => { pts.delete(ev.pointerId); if (pts.size < 2) d0 = 0;
+  if (!pts.size) { arr = false; lz.classList.remove('arr'); } };
+['pointerup', 'pointercancel', 'pointerleave'].forEach(e => lz.addEventListener(e, soltar));
+lz.addEventListener('wheel', ev => {
+  ev.preventDefault();
+  const nv = Math.max(E_MIN, Math.min(E_MAX, esc * Math.exp(-ev.deltaY * (ev.ctrlKey ? .012 : .0022))));
+  vx = ev.clientX - (ev.clientX - vx) * (nv / esc); vy = ev.clientY - (ev.clientY - vy) * (nv / esc);
+  esc = nv; vista();
+}, { passive: false });
+lz.addEventListener('click', ev => { if (!ev.target.closest('.nodo') && !movido) { cerrar(); quitarCamino(); } });
+const zb = f => { const nv = Math.max(E_MIN, Math.min(E_MAX, esc * f));
+  vx = innerWidth / 2 - (innerWidth / 2 - vx) * (nv / esc); vy = innerHeight / 2 - (innerHeight / 2 - vy) * (nv / esc);
+  esc = nv; vista(); };
+$('#z-mas').onclick = () => zb(1.45); $('#z-menos').onclick = () => zb(1 / 1.45); $('#z-fit').onclick = () => encajar();
+
+/* ── construir un árbol ─────────────────────────────── */
+function construir(id, guardar = true) {
+  if (!G[id]) return;
+  if (guardar && raiz !== id) historia.push({ raiz, amplio });
+  raiz = id; quitarCamino();
+  visibles = amplio ? miFamilia(id) : miLinea(id);
+  const p = G[id];
+  $('#cab-q').textContent = id === yo ? 'Tu árbol' : (parentesco(yo, id) || 'Su árbol');
+  $('#cab-n').textContent = p.n;
+  $('#volver').classList.toggle('on', historia.length > 0);
+  $('#btn-amplitud').classList.toggle('on', amplio);
+  $('#btn-amplitud').textContent = amplio ? 'Solo mi línea' : 'Con primos';
+  pintar(visibles);
+  /* arrancar centrado y legible: el conjunto se ve con «Encajar» */
+  const eLegible = movil ? .78 : .9;
+  const c = pos[id];
+  if (c) irA(eLegible, innerWidth / 2 - (c.x + ANCHO / 2) * eLegible,
+                       innerHeight * .5 - (c.y + ALTO / 2) * eLegible, false);
+  else encajar(visibles, false);
+}
+$('#volver').onclick = () => {
+  const h = historia.pop(); if (!h) return;
+  amplio = h.amplio; construir(h.raiz, false);
+  $('#volver').classList.toggle('on', historia.length > 0);
+  cerrar();
+};
+$('#btn-amplitud').onclick = () => {
+  amplio = !amplio; visibles = amplio ? miFamilia(raiz) : miLinea(raiz);
+  $('#btn-amplitud').classList.toggle('on', amplio);
+  $('#btn-amplitud').textContent = amplio ? 'Solo mi línea' : 'Con primos';
+  pintar(visibles); centrar(raiz, Math.max(esc, movil ? .6 : .72));
+  aviso(amplio ? `Con hermanos, tíos y primos · ${visibles.size} personas` : `Solo tu línea de sangre · ${visibles.size} personas`);
+};
+$('#btn-yo').onclick = () => { historia.length = 0; construir(yo, false); cerrar(); };
+
+function aviso(t) { const a = $('#aviso'); a.textContent = t; a.classList.add('on');
+  clearTimeout(a._t); a._t = setTimeout(() => a.classList.remove('on'), 2800); }
+
+/* ── el camino de la sangre ─────────────────────────── */
+function cadenaAscendente(id) {
+  /* la rama con nombre más profunda hacia arriba;
+     las casillas vacías cortan la rama, no la alargan */
+  let mejor = null;
+  const puntos = r => r.length * 100 +
+    r.reduce((a, x) => a + (G[x].f || []).filter(f => f[1] === 'doc').length, 0);
+  const rec = (x, ruta) => {
+    const pd = (G[x].pa || []).filter(a => G[a] && !G[a].hueco);
+    if (!pd.length) { if (!mejor || puntos(ruta) > puntos(mejor)) mejor = ruta; return; }
+    pd.forEach(a => { if (!ruta.includes(a)) rec(a, [...ruta, a]); });
+  };
+  rec(id, [id]);
+  return mejor || [id];
+}
+function verCamino(id) {
+  const c = cadenaAscendente(id);
+  if (c.length < 3) { aviso('De esta persona no sabemos aún de dónde viene'); return; }
+  camino = c; marcar();
+  const dentro = c.filter(x => pos[x]);
+  if (dentro.length) {
+    const x0 = Math.min(...dentro.map(i => pos[i].x)) - 30, x1 = Math.max(...dentro.map(i => pos[i].x)) + ANCHO + 30;
+    const y0 = Math.min(...dentro.map(i => pos[i].y)) - 40, y1 = Math.max(...dentro.map(i => pos[i].y)) + ALTO + 20;
+    const e = Math.max(E_MIN, Math.min(.95, Math.min((innerWidth - 40) / (x1 - x0), (innerHeight - 150) / (y1 - y0))));
+    irA(e, (innerWidth - (x1 - x0) * e) / 2 - x0 * e, 72 + (innerHeight - 140 - (y1 - y0) * e) / 2 - y0 * e);
+  }
+  /* narración */
+  const cuerpo = $('#f-cuerpo');
+  const b = document.createElement('div'); b.className = 'blq';
+  b.innerHTML = '<h3>De dónde vienes</h3>';
+  c.forEach((x, k) => {
+    const p = G[x], l = document.createElement('div'); l.className = 'camino-linea';
+    const rel = k === 0 ? '' : parentesco(c[0], x);
+    l.innerHTML = `<span class="paso">${k === 0 ? '' : rel}</span>` +
+      `<span><b>${p.n}</b>${anios(p) ? ` <span class="y">${anios(p)}</span>` : ''}</span>`;
+    b.appendChild(l);
+  });
+  const ult = G[c[c.length - 1]], a = anio(ult.nac) || anio(ult.fall);
+  const fin = document.createElement('div'); fin.className = 'camino-fin';
+  fin.textContent = a
+    ? `${c.length} generaciones. Hasta aquí llega lo que sabemos: ${ult.n}, hacia ${a}.`
+    : `${c.length} generaciones. Hasta aquí llega lo que sabemos.`;
+  b.appendChild(fin);
+  cuerpo.insertBefore(b, cuerpo.firstChild); cuerpo.scrollTop = 0;
+  $('#f-camino').textContent = 'Quitar el camino';
+}
+function quitarCamino() { if (!camino) return; camino = null; marcar(); $('#f-camino').textContent = 'El camino'; }
+$('#f-camino').onclick = () => { if (camino) { quitarCamino(); if (selId) abrir(selId); } else if (selId) verCamino(selId); };
+
+/* ── ficha ──────────────────────────────────────────── */
+const SIG = { doc: '●', mem: '○', hip: '?', falta: '·', viva: '×', out: '×' };
+const NIV = { doc: 'Documentado', mem: 'Memoria familiar', hip: 'Hipótesis', falta: 'Falta por saber', viva: 'Reservado', out: 'Retirado' };
+const CLAVES = { pat: 'SANCHEZ26', mat: 'SANCHEZ26', pol: 'SANCHEZ26', yo: 'SANCHEZ26' };
+
+function abrir(id) {
+  const p = G[id]; if (!p) return;
+  selId = id; marcar();
+  const rel = id === yo ? 'Eres tú' : parentesco(yo, id);
+  $('#f-rel').textContent = rel ? `${rel}${id === yo ? '' : ' de ' + G[yo].n.split(' ').slice(0, 2).join(' ')}` : '';
+  $('#f-nom').textContent = p.n;
+  const c = $('#f-cuerpo'); c.innerHTML = '';
+
+  /* datos */
+  const filas = [];
+  if (p.nac) filas.push(['Nace', p.nac + (p.nacLugar && L[p.nacLugar] ? ' · ' + L[p.nacLugar].n : '')]);
+  if (p.fall) filas.push(['Fallece', p.fall]);
+  if (p.o) filas.push(['Oficio', p.o]);
+  if (p.viva) filas.push(['Estado', 'Persona viva']);
+  if (filas.length) {
+    const b = document.createElement('div'); b.className = 'blq';
+    b.innerHTML = '<h3>Ficha</h3>' + filas.map(([k, v]) =>
+      `<div class="dt"><span class="m m-doc">●</span><span class="t"><b>${k}:</b> ${v}</span></div>`).join('');
+    c.appendChild(b);
+  }
+
+  /* llamada a completar: siempre, en todas las fichas */
+  {
+    const r2 = riqueza(p), faltan2 = (p.f || []).filter(f => f[1] === 'falta');
+    const enlace = paquete(p, G, 'arbol', CLAVES[p.r] || 'FAMILIA26');
+    const b = document.createElement('div');
+    const nom0 = p.n.split(' ')[0];
+    if (p.viva) {
+      b.className = 'cta viva';
+      b.innerHTML = `<h4>${nom0} vive</h4>
+        <p>Las fichas de personas vivas solo las puede completar quien tenga
+        <b>clave de confianza</b>. Si la tienes, adelante. Si no, pásale el enlace a ella misma.</p>
+        <a href="${enlace}" target="_blank" rel="noopener">Completar su ficha</a>
+        <div class="clave">Hace falta una clave que empiece por NUCLEO-</div>`;
+    } else {
+      const sinNom = p.hueco || /^\[nombre\]|sin nombre|sin datos/i.test(p.n);
+      const pobre = r2 < .45 || faltan2.length >= 2;
+      const nom = sinNom ? 'esta persona' : nom0;
+      const pide = [];
+      if (sinNom) pide.push('Su nombre y sus dos apellidos');
+      if (!p.nac) pide.push('Cuándo y dónde nació');
+      if (!p.fall) pide.push('Cuándo falleció');
+      if (!p.o) pide.push('A qué se dedicaba');
+      pide.push('Cómo la llamaban en casa', 'Cómo era de carácter', 'Anécdotas o dichos suyos',
+                'Aficiones', 'Dónde vivió', 'Fotos o papeles suyos');
+      b.className = 'cta' + (pobre ? '' : ' suave');
+      b.innerHTML =
+        `<h4>${sinNom ? 'De esta persona solo sabemos que existió'
+             : (pobre ? `De ${nom} sabemos muy poco` : `¿Sabes algo más de ${nom}?`)}</h4>` +
+        `<p>${sinNom
+          ? 'Sabemos que estuvo ahí porque sin ella no estaría esta familia. Pero no sabemos ni cómo se llamaba. ¿Te suena algo?'
+          : (pobre
+            ? 'Alguien de la familia se acuerda. A lo mejor eres tú. Con un solo dato ya merece la pena.'
+            : 'Están las fechas y los papeles, pero falta lo que no sale en ningún archivo: cómo era, qué contaba, qué le gustaba.')}</p>` +
+        `<div class="lista">${pide.slice(0, 7).map(x => `<span>${x}</span>`).join('')}</div>` +
+        `<a href="${enlace}" target="_blank" rel="noopener">Completar la ficha de ${nom}</a>` +
+        `<div class="clave">Se abre con los ${Object.keys(p).filter(k => ['nac','fall','o','nacLugar'].includes(k)).length + 1} datos que ya tenemos puestos</div>`;
+    }
+    c.appendChild(b);
+  }
+
+  /* familia */
+  const grupo = (t, ids) => {
+    ids = [...new Set(ids)].filter(x => G[x]); if (!ids.length) return;
+    const b = document.createElement('div'); b.className = 'blq';
+    const h = document.createElement('h3'); h.textContent = t; b.appendChild(h);
+    const l = document.createElement('div'); l.className = 'pl';
+    ids.forEach(x => {
+      const bt = document.createElement('button'); bt.className = 'pers';
+      bt.innerHTML = `${nombreCorto(G[x])}${anios(G[x]) ? `<span class="a">${anios(G[x])}</span>` : ''}`;
+      bt.onclick = () => { if (!visibles.has(x)) construir(x); abrir(x); centrar(x); };
+      l.appendChild(bt);
+    });
+    b.appendChild(l); c.appendChild(b);
+  };
+  grupo('Padres', p.pa);
+  const herm = new Set(); p.pa.forEach(a => (G[a]?.h || []).forEach(h => { if (h !== id) herm.add(h); }));
+  grupo('Hermanos', [...herm]);
+  grupo(p.cy.length > 1 ? 'Cónyuges' : 'Cónyuge', p.cy);
+  grupo('Hijos', p.h);
+
+  /* lo que sabemos */
+  const dichos = (p.f || []).filter(f => f[1] !== 'falta');
+  if (dichos.length) {
+    const b = document.createElement('div'); b.className = 'blq';
+    b.innerHTML = '<h3>Lo que sabemos</h3>';
+    dichos.forEach(([t, n, nota]) => {
+      const d = document.createElement('div'); d.className = 'dt';
+      d.innerHTML = `<span class="m m-${n}" title="${NIV[n] || n}">${SIG[n] || '·'}</span>` +
+        `<span class="t">${t}${nota ? `<span class="nota">${nota}</span>` : ''}</span>`;
+      b.appendChild(d);
+    });
+    c.appendChild(b);
+  }
+  if (faltan.length) {
+    const b = document.createElement('div'); b.className = 'blq';
+    b.innerHTML = '<h3>Lo que falta</h3>';
+    faltan.forEach(([t, n, nota]) => {
+      const d = document.createElement('div'); d.className = 'dt falta';
+      d.innerHTML = `<span class="m m-falta">·</span><span class="t">${t}${nota ? `<span class="nota">${nota}</span>` : ''}</span>`;
+      b.appendChild(d);
+    });
+    c.appendChild(b);
+  }
+
+  $('#f-arbol').textContent = id === raiz ? 'Ya estás en su árbol' : 'Ver su árbol';
+  $('#f-arbol').disabled = id === raiz;
+  $('#f-camino').textContent = camino ? 'Quitar el camino' : 'El camino';
+  $('#ficha').classList.add('on'); c.scrollTop = 0;
+  requestAnimationFrame(() => centrar(id));
+}
+function cerrar() { $('#ficha').classList.remove('on'); selId = null; marcar(); }
+$('#f-cerrar').onclick = cerrar;
+$('#f-arbol').onclick = () => { if (selId && selId !== raiz) { construir(selId); abrir(selId); } };
+(() => { const t = $('#tira'); let y0 = 0, act = false;
+  t.addEventListener('pointerdown', e => { act = true; y0 = e.clientY; t.setPointerCapture(e.pointerId); });
+  t.addEventListener('pointermove', e => { if (act && e.clientY > y0) $('#ficha').style.transform = `translateY(${e.clientY - y0}px)`; });
+  t.addEventListener('pointerup', e => { act = false; $('#ficha').style.transform = ''; if (e.clientY - y0 > 70) cerrar(); });
+})();
+
+$('#btn-como').onclick = () => {
+  selId = null; marcar();
+  $('#f-rel').textContent = ''; $('#f-nom').textContent = 'Cómo se lee';
+  $('#f-cuerpo').innerHTML = `
+   <div class="blq"><h3>El árbol es tuyo</h3>
+    <p style="font-size:14.5px;color:var(--papel2)">Lo que ves es la familia <b style="color:var(--papel)">de la persona
+    que está en dorado</b>. Las franjas horizontales llevan escrito lo que esa generación es para ella:
+    padres, abuelos, bisabuelos. Si tocas a otra persona y pulsas <b style="color:var(--papel)">Ver su árbol</b>,
+    todo se recoloca alrededor suyo. La flecha de arriba te devuelve donde estabas.</p></div>
+   <div class="blq"><h3>La barra bajo cada nombre</h3>
+    <p style="font-size:14.5px;color:var(--papel2)">Dice cuánto sabemos de esa persona.
+    Verde: hay documentos. Dorada: sabemos lo básico. Roja o vacía: casi nada, y ahí es donde
+    hace falta tu ayuda. Las cajas de línea discontinua son personas que existieron y de las que
+    ni siquiera tenemos el nombre.</p></div>
+   <div class="blq"><h3>El color del borde</h3>
+    <div class="pl">
+     <span class="pers"><b style="color:var(--yo)">▌</b> Tu propia rama</span>
+     <span class="pers"><b style="color:var(--pat)">▌</b> Rama paterna</span>
+     <span class="pers"><b style="color:var(--mat)">▌</b> Rama materna</span>
+     <span class="pers"><b style="color:var(--pol)">▌</b> Entra por matrimonio</span>
+    </div></div>
+   <div class="blq"><h3>El camino</h3>
+    <p style="font-size:14.5px;color:var(--papel2)">En cualquier ficha, el botón <b style="color:var(--papel)">El camino</b>
+    ilumina la línea de sangre desde esa persona hasta el antepasado más antiguo que conocemos,
+    y te la cuenta generación a generación.</p></div>
+   <div class="blq"><h3>Los niveles de certeza</h3>
+    <div class="dt"><span class="m m-doc">●</span><span class="t"><b>Documentado.</b> Hay un papel y lo hemos visto</span></div>
+    <div class="dt"><span class="m m-mem">○</span><span class="t"><b>Memoria familiar.</b> Lo cuenta alguien de la casa</span></div>
+    <div class="dt"><span class="m m-hip">?</span><span class="t"><b>Hipótesis.</b> Encaja, pero no está probado</span></div>
+    <div class="dt"><span class="m m-falta">·</span><span class="t"><b>Falta.</b> Sabemos que no lo sabemos</span></div></div>
+   <div class="blq"><h3>Moverse</h3>
+    <p style="font-size:14.5px;color:var(--papel2)">Pellizca para acercar y alejar, arrastra para moverte.
+    «Encajar» vuelve a poner el árbol entero en pantalla.</p></div>`;
+  $('#f-arbol').disabled = true; $('#f-arbol').textContent = '—';
+  $('#ficha').classList.add('on'); $('#f-cuerpo').scrollTop = 0;
+};
+document.addEventListener('keydown', ev => {
+  if (ev.key === 'Escape') { if (camino) quitarCamino(); else cerrar(); }
+  if (ev.key === 'Backspace' && document.activeElement === document.body) { ev.preventDefault(); $('#volver').click(); }
+});
+
+/* ── portada ────────────────────────────────────────── */
+const idx = IDS.map(id => ({ id, k: norm(G[id].n) })).filter(x => !G[x.id].hueco);
+const inp = $('#nombre'), lst = $('#p-lista');
+let sel = -1, lista = [];
+function sugerir() {
+  const q = norm(inp.value.trim());
+  if (q.length < 2) { lst.classList.remove('on'); return; }
+  lista = idx.filter(x => x.k.includes(q))
+    .sort((a, b) => a.k.indexOf(q) - b.k.indexOf(q) || a.k.localeCompare(b.k)).slice(0, 20);
+  lst.innerHTML = '';
+  if (!lista.length) {
+    lst.innerHTML = `<div style="padding:13px 15px;color:var(--falta);font-size:14.5px">
+      Nadie con ese nombre en el archivo todavía.<br>
+      <a href="${FORMULARIO}" target="_blank" rel="noopener">Cuéntanos quién eres</a> y te añadimos.</div>`;
+  } else lista.forEach(x => {
+    const p = G[x.id], b = document.createElement('button'); b.setAttribute('role', 'option');
+    const d = [anios(p), p.o, parentesco('csm', x.id)].filter(Boolean).join(' · ');
+    b.innerHTML = `${p.n}<div class="g">${d}</div>`;
+    b.onclick = () => entrar(x.id);
+    lst.appendChild(b);
+  });
+  sel = -1; lst.classList.add('on');
+}
+inp.addEventListener('input', sugerir);
+inp.addEventListener('keydown', ev => {
+  const bs = [...lst.querySelectorAll('button')];
+  if (ev.key === 'ArrowDown' || ev.key === 'ArrowUp') {
+    ev.preventDefault(); sel += ev.key === 'ArrowDown' ? 1 : -1;
+    sel = Math.max(0, Math.min(bs.length - 1, sel));
+    bs.forEach((b, i) => b.classList.toggle('sel', i === sel));
+    bs[sel]?.scrollIntoView({ block: 'nearest' });
+  } else if (ev.key === 'Enter') { ev.preventDefault(); if (lista[sel]) entrar(lista[sel].id); else if (lista[0]) entrar(lista[0].id); }
+});
+$('#p-saltar').onclick = () => entrar('csm');
+function entrar(id) {
+  yo = id; raiz = id; cacheAsc.clear();
+  $('#portada').classList.add('off');
+  historia.length = 0;
+  construir(id, false);
+  const n = miLinea(id).size;
+  setTimeout(() => aviso(id === 'csm' ? 'Toca a cualquiera para abrir su ficha' : `Tu árbol · ${n} personas`), 700);
+}
+
+/* ── arranque ───────────────────────────────────────── */
+function medir() { svg.setAttribute('viewBox', `0 0 ${innerWidth} ${innerHeight}`); }
+addEventListener('resize', () => { medir(); vista(); });
+medir();
+$('#c-pers').textContent = IDS.filter(i => !G[i].hueco).length;
+$('#c-gen').textContent = new Set(IDS.map(i => G[i].g)).size;
+$('#c-doc').textContent = Object.values(G).reduce((a, p) => a + (p.f || []).filter(f => f[1] === 'doc').length, 0);
+$('#c-anio').textContent = (() => {
+  const a = IDS.map(i => parseInt(anio(G[i].nac), 10)).filter(x => x > 1000);
+  return a.length ? Math.min(...a) : '—';
+})();
+</script>
+</body>
+</html>
